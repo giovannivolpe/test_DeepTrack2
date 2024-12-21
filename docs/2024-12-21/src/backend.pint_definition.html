@@ -613,85 +613,90 @@
   <section id="module-deeptrack.backend.pint_definition">
 <span id="deeptrack-backend-pint-definition-module"></span><h1>deeptrack.backend.pint_definition Module<a class="headerlink" href="#module-deeptrack.backend.pint_definition" title="Link to this heading">#</a></h1>
 <p>Pint constants and units definition for DeepTrack2.</p>
-<p>This file consolidates and extends the default definitions provided by Pint’s 
-<cite>default_en.txt</cite> and <cite>constants_en.txt</cite> files. These files define physical 
-constants and unit systems based on internationally recognized standards, such 
-as the  International System of Units (SI), and additional systems like CGS, 
-Planck units, and atomic units.</p>
+<p>This module consolidates and extends the default definitions provided by Pint’s 
+<cite>default_en.txt</cite> and <cite>constants_en.txt</cite> files. It defines physical constants, 
+unit systems, and project-specific adjustments necessary for DeepTrack2.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Pint is a Python library used for handling units and quantities. This module 
+augments Pint’s default definitions by introducing project-specific constants 
+and unit modifications, ensuring precise and flexible calculations in the context 
+of DeepTrack2.</p>
+</section>
 <section id="sources">
 <h2>Sources<a class="headerlink" href="#sources" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Pint’s default unit definitions: 
-<a class="github reference external" href="https://github.com/hgrecco/pint/blob/main/pint/default_en.txt">hgrecco/pint</a></p></li>
-<li><p>Pint’s default constants definitions: 
-<a class="github reference external" href="https://github.com/hgrecco/pint/blob/main/pint/constants_en.txt">hgrecco/pint</a></p></li>
+<li><p><strong>Pint’s default unit definitions</strong>: 
+[default_en.txt](<a class="github reference external" href="https://github.com/hgrecco/pint/blob/main/pint/default_en.txt">hgrecco/pint</a>)</p></li>
+<li><p><strong>Pint’s default constants definitions</strong>: 
+[constants_en.txt](<a class="github reference external" href="https://github.com/hgrecco/pint/blob/main/pint/constants_en.txt">hgrecco/pint</a>)</p></li>
 </ul>
 </section>
-<section id="content">
-<h2>Content<a class="headerlink" href="#content" title="Link to this heading">#</a></h2>
-<ul class="simple">
+<section id="content-overview">
+<h2>Content Overview<a class="headerlink" href="#content-overview" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
 <li><dl class="simple">
-<dt>Mathematical Constants: Includes key values like π, Euler’s number, </dt><dd><p>and the natural logarithm of 10.</p>
+<dt><strong>Mathematical Constants</strong>: Includes key values like pi, Euler’s number, and </dt><dd><p>the natural logarithm of 10.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Physical Constants: Covers fundamental constants like the speed of light, </dt><dd><p>Planck constant, and Boltzmann constant.</p>
+<dt><strong>Physical Constants</strong>: Covers fundamental constants like the speed of </dt><dd><p>light, Planck constant, and Boltzmann constant.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Derived Constants: Defines values such as the fine-structure constant and </dt><dd><p>classical electron radius.</p>
+<dt><strong>Derived Constants</strong>: Defines values such as the fine-structure constant </dt><dd><p>and classical electron radius.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Units: Provides base and derived units for length, mass, time, energy, etc., </dt><dd><p>with precise conversion factors.</p>
+<dt><strong>Units</strong>: Provides base and derived units for length, mass, time, energy, </dt><dd><p>etc., with precise conversion factors.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Prefixes and Aliases: Defines standard prefixes (e.g., milli-, kilo-, mega-) </dt><dd><p>and unit aliases to ensure flexibility.</p>
+<dt><strong>Prefixes and Aliases</strong>: Defines standard prefixes (e.g., milli-, kilo-, </dt><dd><p>mega-) and unit aliases.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Unit Systems: Details unit systems, including SI, MKS, CGS, Planck, and </dt><dd><p>imperial units.</p>
+<dt><strong>Unit Systems</strong>: Details systems including SI, MKS, CGS, Planck, and </dt><dd><p>imperial units.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Contexts and Conversion: Includes context-specific definitions to facilitate </dt><dd><p>domain-specific conversions.</p>
-</dd>
-</dl>
-</li>
-</ul>
-</section>
-<section id="key-modifications">
-<h2>Key Modifications<a class="headerlink" href="#key-modifications" title="Link to this heading">#</a></h2>
-<p>This file is derived from the default Pint files with the adjustments:
-1. Groups Removed: Unit group definitions (e.g., <cite>&#64;group</cite>) have been excluded</p>
-<blockquote>
-<div><p>to avoid conflicts with the definition of pixel.</p>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li><dl class="simple">
-<dt>Final Variables Added: Defines constants and variables required for the </dt><dd><p>project-specific context (e.g., pixel-related units).</p>
+<dt><strong>Contexts and Conversion</strong>: Context-specific definitions for </dt><dd><p>domain-specific conversions.</p>
 </dd>
 </dl>
 </li>
 </ol>
 </section>
-<section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
+<section id="key-modifications">
+<h2>Key Modifications<a class="headerlink" href="#key-modifications" title="Link to this heading">#</a></h2>
+<p>This module is derived from the default Pint files with the following changes:
+1. <strong>Groups Removed</strong>: Unit group definitions (e.g., <cite>&#64;group</cite>) have been</p>
+<blockquote>
+<div><p>excluded to avoid conflicts with pixel definitions.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><dl class="simple">
+<dt><strong>Final Variables Added</strong>: Constants and variables required for </dt><dd><p>project-specific contexts, such as pixel-related units.</p>
+</dd>
+</dl>
+</li>
+</ol>
+</section>
+<section id="usage-example">
+<h2>Usage Example<a class="headerlink" href="#usage-example" title="Link to this heading">#</a></h2>
 <p>To create a unit registry with custom pixel-related units:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pint</span> <span class="kn">import</span> <span class="n">UnitRegistry</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">.backend.pint_definition</span> <span class="kn">import</span> <span class="n">pint_definitions</span>
-<span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">units</span> <span class="o">=</span> <span class="n">UnitRegistry</span><span class="p">(</span><span class="n">pint_definitions</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span>
-<span class="go">&quot;))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pint</span> <span class="kn">import</span> <span class="n">UnitRegistry</span>
+<span class="kn">from</span> <span class="nn">.backend.pint_definition</span> <span class="kn">import</span> <span class="n">pint_definitions</span>
+
+<span class="n">units</span> <span class="o">=</span> <span class="n">UnitRegistry</span><span class="p">(</span><span class="n">pint_definitions</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
+<p>“))</p>
 </section>
 </section>
 
@@ -742,10 +747,11 @@ Planck units, and atomic units.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#content">Content</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#content-overview">Content Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-modifications">Key Modifications</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-example">Usage Example</a></li>
 </ul>
   </nav></div>
 
