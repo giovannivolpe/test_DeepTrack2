@@ -62,7 +62,7 @@ jobs:
         run: |
           SWITCHER_FILE=_static/switcher.json
           jq --arg version "$VERSION" \
-             '. |= [{"name": $version, "version": $version, "url": "https://giovannivolpe.github.io/test_DeepTrack2/\($version)/"}] + .' \
+             '. |= [{"name": $version, "version": $version, "url": "https://giovannivolpe.github.io/trial_DeepTrack2/\($version)/"}] + .' \
              $SWITCHER_FILE > temp.json && mv temp.json $SWITCHER_FILE
 
       # Step 7: Build documentation using Sphinx into html
