@@ -1,6 +1,0 @@
-is_tensorflow_object
-====================
-
-.. currentmodule:: deeptrack.image
-
-.. autofunction:: is_tensorflow_object

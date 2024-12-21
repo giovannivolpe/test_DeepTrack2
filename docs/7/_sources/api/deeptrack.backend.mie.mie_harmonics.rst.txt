@@ -1,6 +1,0 @@
-mie_harmonics
-=============
-
-.. currentmodule:: deeptrack.backend.mie
-
-.. autofunction:: mie_harmonics
