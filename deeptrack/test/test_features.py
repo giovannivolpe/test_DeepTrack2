@@ -1,22 +1,18 @@
-import sys
+# pylint: disable=C0115:missing-class-docstring
+# pylint: disable=C0116:missing-function-docstring
+# pylint: disable=C0103:invalid-name
 
-# sys.path.append(".")  # Adds the module to path
+# Use this only when running the test locally.
+# import sys
+# sys.path.append(".")  # Adds the module to path.
 
 import unittest
 import operator
 import itertools
-from numpy.core.numeric import array_equal
-
-from numpy.testing._private.utils import assert_almost_equal
-
-from deeptrack import scatterers
-
-from .. import features, Image, properties, utils
-from .. import units
-
 
 import numpy as np
-import numpy.testing
+
+from deeptrack import features, properties, scatterers, units
 
 
 def grid_test_features(
@@ -135,43 +131,190 @@ def test_operator(self, operator, emulated_operator=None):
 
 
 class TestFeatures(unittest.TestCase):
-    def test_create_Feature(self):
 
-        feature = features.DummyFeature()
+    def test_Feature_basics(self):
 
-        self.assertIsInstance(feature, features.Feature)
-        self.assertIsInstance(feature.properties, properties.PropertyDict)
+        F = features.DummyFeature()
+        self.assertIsInstance(F, features.Feature)
+        self.assertIsInstance(F.properties, properties.PropertyDict)
+        self.assertEqual(F.properties(), {'name': 'DummyFeature'})
 
-    def test_create_Feature_with_properties(self):
-        feature = features.DummyFeature(prop_a="a", prop_2=2)
+        F = features.DummyFeature(a=1, b=2)
+        self.assertIsInstance(F, features.Feature)
+        self.assertIsInstance(F.properties, properties.PropertyDict)
+        self.assertEqual(F.properties(),
+                         {'a': 1, 'b': 2, 'name': 'DummyFeature'})
 
-        self.assertIsInstance(feature, features.Feature)
-        self.assertIsInstance(feature.properties, properties.PropertyDict)
+        F = features.DummyFeature(prop_int=1, prop_bool=True, prop_str='a')
+        self.assertIsInstance(F, features.Feature)
+        self.assertIsInstance(F.properties, properties.PropertyDict)
+        self.assertEqual(
+            F.properties(),
+            {'prop_int': 1, 'prop_bool': True, 'prop_str': 'a', 
+             'name': 'DummyFeature'},
+        )
+        self.assertIsInstance(F.properties['prop_int'](), int)
+        self.assertEqual(F.properties['prop_int'](), 1)
+        self.assertIsInstance(F.properties['prop_bool'](), bool)
+        self.assertEqual(F.properties['prop_bool'](), True)
+        self.assertIsInstance(F.properties['prop_str'](), str)
+        self.assertEqual(F.properties['prop_str'](), 'a')
 
-        self.assertIsInstance(feature.properties["prop_a"](), str)
-        self.assertEqual(feature.properties["prop_a"](), "a")
-
-        self.assertIsInstance(feature.properties["prop_2"](), int)
-        self.assertEqual(feature.properties["prop_2"](), 2)
 
     def test_Feature_properties_update(self):
 
         feature = features.DummyFeature(
-            prop_a=lambda: np.random.rand(), prop_b="b", prop_c=iter(range(10))
+            prop_a=lambda: np.random.rand(),
+            prop_b="b",
+            prop_c=iter(range(10)),
         )
 
-        start = feature.properties()
+        prop_dict = feature.properties()
 
-        self.assertIsInstance(start["prop_a"], float)
-        self.assertIsInstance(start["prop_b"], str)
-        self.assertIsInstance(start["prop_c"], int)
+        self.assertIsInstance(prop_dict["prop_a"], float)
+        self.assertIsInstance(prop_dict["prop_b"], str)
+        self.assertIsInstance(prop_dict["prop_c"], int)
 
-        without_update = feature.properties()
-        self.assertDictEqual(start, without_update)
+        prop_dict_without_update = feature.properties()
+        self.assertDictEqual(prop_dict, prop_dict_without_update)
 
         feature.update()
-        with_update = feature.properties()
-        self.assertNotEqual(start, with_update)
+        prop_dict_with_update = feature.properties()
+        self.assertNotEqual(prop_dict, prop_dict_with_update)
+
+
+    def test_Feature_memorized(self):
+
+        list_of_inputs = []
+
+        class ConcreteFeature(features.Feature):
+            __distributed__ = False
+
+            def get(self, input, **kwargs):
+                list_of_inputs.append(input)
+                return input
+
+        feature = ConcreteFeature(prop_a=1)
+        self.assertEqual(len(list_of_inputs), 0)
+
+        feature()
+        self.assertEqual(len(list_of_inputs), 1)
+
+        feature()
+        self.assertEqual(len(list_of_inputs), 1)
+
+        feature.update()
+        self.assertEqual(len(list_of_inputs), 1)
+        feature()
+        self.assertEqual(len(list_of_inputs), 2)
+
+        feature.prop_a.set_value(1)
+        feature()
+        self.assertEqual(len(list_of_inputs), 2)
+
+        feature.prop_a.set_value(2)
+        feature()
+        self.assertEqual(len(list_of_inputs), 3)
+
+        feature([])
+        self.assertEqual(len(list_of_inputs), 3)
+
+        feature([1])
+        self.assertEqual(len(list_of_inputs), 4)
+
+
+    def test_Feature_dependence(self):
+
+        A = features.Value(lambda: np.random.rand())
+        B = features.Value(value=A.value)
+        C = features.Value(value=B.value + 1)
+        D = features.Value(value=C.value + B.value)
+        E = features.Value(value=D + C.value)
+
+        self.assertEqual(B(), A())
+        self.assertEqual(C(), B() + 1)
+        self.assertEqual(D(), C() + B())
+        self.assertEqual(E(), D() + C())
+
+        A.update()
+        self.assertEqual(B(), A())
+        self.assertEqual(C(), B() + 1)
+        self.assertEqual(D(), C() + B())
+        self.assertEqual(E(), D() + C())
+
+        B.update()
+        self.assertEqual(B(), A())
+        self.assertEqual(C(), B() + 1)
+        self.assertEqual(D(), C() + B())
+        self.assertEqual(E(), D() + C())
+
+        C.update()
+        self.assertEqual(B(), A())
+        self.assertEqual(C(), B() + 1)
+        self.assertEqual(D(), C() + B())
+        self.assertEqual(E(), D() + C())
+
+        D.update()
+        self.assertEqual(B(), A())
+        self.assertEqual(C(), B() + 1)
+        self.assertEqual(D(), C() + B())
+        self.assertEqual(E(), D() + C())
+
+        E.update()
+        self.assertEqual(B(), A())
+        self.assertEqual(C(), B() + 1)
+        self.assertEqual(D(), C() + B())
+        self.assertEqual(E(), D() + C())
+
+
+    def test_Chain(self):
+
+        class Addition(features.Feature):
+            """Simple feature that adds a constant."""
+            def get(self, image, **kwargs):
+                # 'addend' is a property set via self.properties (default: 0).
+                return image + self.properties.get("addend", 0)()
+
+        class Multiplication(features.Feature):
+            """Simple feature that multiplies by a constant."""
+            def get(self, image, **kwargs):
+                # 'multiplier' is a property set via self.properties (default: 1).
+                return image * self.properties.get("multiplier", 1)()
+
+        A = Addition(addend=10)
+        M = Multiplication(multiplier=0.5)
+
+        input_image = np.ones((2, 3))
+
+        chain_AM = features.Chain(A, M)
+        np.testing.assert_array_equal(
+            chain_AM(input_image),
+            (np.ones((2, 3)) + A.properties["addend"]())
+            * M.properties["multiplier"](),
+        )
+
+        chain_MA = features.Chain(M, A)
+        np.testing.assert_array_equal(
+            chain_MA(input_image),
+            (np.ones((2, 3)) * M.properties["multiplier"]()
+            + A.properties["addend"]()),
+        )
+
+
+    def test_Value(self):
+
+        value = features.Value(value=1)
+        self.assertEqual(value(), 1)
+        self.assertEqual(value.value(), 1)
+        self.assertEqual(value(value=2), 2)
+        self.assertEqual(value.value(), 2)
+
+        value = features.Value(value=lambda: 1)
+        self.assertEqual(value(), 1)
+        self.assertEqual(value.value(), 1)
+        self.assertNotEqual(value(value=lambda: 2), 2)
+        self.assertNotEqual(value.value(), 2)
+
 
     def test_Property_set_value_invalidates_feature(self):
         class ConcreteFeature(features.Feature):
@@ -193,94 +336,6 @@ class TestFeatures(unittest.TestCase):
         feature.prop.set_value(2)
         self.assertFalse(feature.is_valid())
 
-    def test_Feature_memoized(self):
-
-        list_of_inputs = []
-
-        class ConcreteFeature(features.Feature):
-            __distributed__ = False
-
-            def get(self, input, **kwargs):
-                list_of_inputs.append(input)
-                return input
-
-        feature = ConcreteFeature(prop_a=1)
-
-        feature()
-        self.assertEqual(len(list_of_inputs), 1)
-        feature()
-        self.assertEqual(len(list_of_inputs), 1)
-        feature.update()
-        feature()
-        self.assertEqual(len(list_of_inputs), 2)
-        # Called with identical input
-
-        feature.prop_a.set_value(1)
-        feature()
-        self.assertEqual(len(list_of_inputs), 2)
-
-        feature.prop_a.set_value(2)
-        feature()
-        self.assertEqual(len(list_of_inputs), 3)
-
-        feature([])
-        self.assertEqual(len(list_of_inputs), 3)
-
-        feature([1])
-        self.assertEqual(len(list_of_inputs), 4)
-
-    def test_Value(self):
-
-        value = features.Value(value=1)
-        self.assertEqual(value(), 1)
-        self.assertEqual(value.value(), 1)
-
-        value = features.Value(value=lambda: 1)
-        self.assertEqual(value(), 1)
-        self.assertEqual(value.value(), 1)
-
-    def test_Feature_dependence(self):
-        A = features.Value(lambda: np.random.rand())
-        B = features.Value(value=A.value)
-        C = features.Value(value=B.value + 1)
-        D = features.Value(value=C.value + B.value)
-        E = features.Value(value=D + C.value)
-
-        self.assertEqual(A(), B())
-        self.assertEqual(C(), B() + 1)
-        self.assertEqual(D(), C() + B())
-        self.assertEqual(E(), D() + C())
-
-        A.update()
-        self.assertEqual(A(), B())
-        self.assertEqual(C(), B() + 1)
-        self.assertEqual(D(), C() + B())
-        self.assertEqual(E(), D() + C())
-
-        B.update()
-        self.assertEqual(A(), B())
-        self.assertEqual(C(), B() + 1)
-        self.assertEqual(D(), C() + B())
-        self.assertEqual(E(), D() + C())
-
-        C.update()
-        self.assertEqual(A(), B())
-        self.assertEqual(C(), B() + 1)
-        self.assertEqual(D(), C() + B())
-        self.assertEqual(E(), D() + C())
-
-        D.update()
-        self.assertEqual(A(), B())
-        self.assertEqual(C(), B() + 1)
-        self.assertEqual(D(), C() + B())
-        self.assertEqual(E(), D() + C())
-
-        E.update()
-        self.assertEqual(A(), B())
-        self.assertEqual(C(), B() + 1)
-        self.assertEqual(D(), C() + B())
-        self.assertEqual(E(), D() + C())
-
     def test_Add(self):
         test_operator(self, operator.add)
 
@@ -293,7 +348,7 @@ class TestFeatures(unittest.TestCase):
     def test_TrueDivide(self):
         test_operator(self, operator.truediv)
 
-    def test_TrueDivide(self):
+    def test_FloorDivide(self):
         test_operator(self, operator.floordiv)
 
     def test_Power(self):
