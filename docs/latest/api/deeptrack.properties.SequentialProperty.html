@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>SequentialProperty &#8212; DeepTrack2 7 documentation</title>
+    <title>SequentialProperty &#8212; DeepTrack2 2024-12-21 documentation</title>
   
   
   
@@ -39,14 +39,14 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=4657d737"></script>
+    <script src="../_static/documentation_options.js?v=d1b89cdd"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/deeptrack.properties.SequentialProperty';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://giovannivolpe.github.io/trial_DeepTrack2/latest/_static/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2024-12-21';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
@@ -56,7 +56,7 @@
     <link rel="prev" title="PropertyDict" href="deeptrack.properties.PropertyDict.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="7" />
+  <meta name="docsearch:version" content="2024-12-21" />
   </head>
   
   
@@ -118,7 +118,7 @@
   
   
   
-    <p class="title logo__title">DeepTrack2 7 documentation</p>
+    <p class="title logo__title">DeepTrack2 2024-12-21 documentation</p>
   
 </a></div>
     
@@ -500,9 +500,9 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../src/backend.mie.html">deeptrack.backend.mie Module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.coefficients.html">coefficients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.harmonics.html">harmonics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.stratified_coefficients.html">stratified_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.mie_coefficients.html">mie_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.mie_harmonics.html">mie_harmonics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.stratified_mie_coefficients.html">stratified_mie_coefficients</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../src/backend.pint_definition.html">deeptrack.backend.pint_definition Module</a></li>
@@ -617,94 +617,28 @@
 <h1>SequentialProperty<a class="headerlink" href="#sequentialproperty" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="deeptrack.properties.SequentialProperty">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deeptrack.properties.</span></span><span class="sig-name descname"><span class="pre">SequentialProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initialization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="deeptrack.properties.Property.html#deeptrack.properties.Property" title="deeptrack.properties.Property"><span class="pre">Property</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deeptrack.properties.SequentialProperty" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deeptrack.properties.</span></span><span class="sig-name descname"><span class="pre">SequentialProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initialization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deeptrack.properties.SequentialProperty" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="deeptrack.properties.Property.html#deeptrack.properties.Property" title="deeptrack.properties.Property"><code class="xref py py-class docutils literal notranslate"><span class="pre">Property</span></code></a></p>
-<p>Property that yields different values for sequential steps.</p>
-<p>The <cite>SequentialProperty</cite> extends the standard <cite>Property</cite> to handle 
-scenarios where the property’s value evolves over discrete steps, such as 
-frames in a video, time-series data, or any sequential process. At each 
-step, it selects whether to use the <cite>initialization</cite> function (step = 0) or 
-the <cite>current</cite> function (steps &gt;= 1). It also keeps track of all previously 
-generated values, allowing to refer back to them if needed.</p>
+<p>Property that has multiple sequential values</p>
+<p>Extends standard <cite>Property</cite> to resolve one value for each step
+in a sequence of images. This is often used when creating movies.</p>
 <section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h2>
 <dl class="simple">
-<dt>initialization<span class="classifier">Any, optional</span></dt><dd><p>A sampling rule for the first step of the sequence (step=0). 
-Can be any value or callable that is acceptable to <cite>Property</cite>. 
-If not provided, the initial value is <cite>None</cite>.</p>
-</dd>
-<dt><a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs<span class="classifier">Dict[str, Property]</span></dt><dd><p>Additional dependencies that might be required if <cite>initialization</cite> 
-is a callable. These dependencies are injected when evaluating
-<cite>initialization</cite>.</p>
+<dt>initialization<span class="classifier">any</span></dt><dd><p>Sampling rule for the first step of the sequence.</p>
 </dd>
 </dl>
-</section>
-<section id="attributes">
-<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt>sequence_length<span class="classifier">Property</span></dt><dd><p>A <cite>Property</cite> holding the total number of steps in the sequence. 
-Initialized to 0 by default.</p>
-</dd>
-<dt>sequence_step<span class="classifier">Property</span></dt><dd><p>A <cite>Property</cite> holding the index of the current step (starting at 0).</p>
-</dd>
-<dt>previous_values<span class="classifier">Property</span></dt><dd><p>A <cite>Property</cite> returning all previously stored values up to, but not
-including, the current value and the previous value.</p>
-</dd>
-<dt>previous_value<span class="classifier">Property</span></dt><dd><p>A <cite>Property</cite> returning the most recently stored value, or <cite>None</cite> 
-if there is no history yet.</p>
-</dd>
-<dt>initialization<span class="classifier">Callable[…, Any], optional</span></dt><dd><p>A function to compute the value at step=0. If <cite>None</cite>, the property 
-returns <cite>None</cite> at the first step.</p>
-</dd>
-<dt>current<span class="classifier">Callable[…, Any]</span></dt><dd><p>A function to compute the value at steps &gt;= 1. By default,  it returns 
-<cite>None</cite>.</p>
-</dd>
-<dt>action<span class="classifier">Callable[…, Any]</span></dt><dd><p>Overrides the default <cite>Property.action</cite> to select between 
-<cite>initialization</cite> (if <cite>sequence_step</cite> is 0) or <cite>current</cite> (otherwise).</p>
-</dd>
-</dl>
-</section>
-<section id="methods">
-<h2>Methods<a class="headerlink" href="#methods" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt>_action_override(_ID: Tuple[int, …]) -&gt; Any</dt><dd><p>Internal logic to pick which function (<cite>initialization</cite> or <cite>current</cite>) 
-to call based on the <cite>sequence_step</cite>.</p>
-</dd>
-<dt>store(value: Any, _ID: Tuple[int, …] = ()) -&gt; None</dt><dd><p>Store a newly computed <cite>value</cite> in the property’s internal list of 
-previously generated values.</p>
-</dd>
-<dt>current_value(_ID: Tuple[int, …] = ()) -&gt; Any</dt><dd><p>Retrieve the value associated with the current step index.</p>
-</dd>
-<dt>__call__(_ID: Tuple[int, …] = ()) -&gt; Any</dt><dd><p>Evaluate the property at the current step, returning either the 
-initialization (if step=0) or current value (if step&gt;0).</p>
-</dd>
-</dl>
-</section>
-<section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">seq_prop</span> <span class="o">=</span> <span class="n">SequentialProperty</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">seq_prop</span><span class="o">.</span><span class="n">sequence_length</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">seq_prop</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_ID</span><span class="o">=</span><span class="p">():</span> <span class="n">SP</span><span class="o">.</span><span class="n">sequence_step</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">seq_prop</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">()):</span>
-<span class="gp">... </span>    <span class="n">seq_prop</span><span class="o">.</span><span class="n">sequence_step</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">current_value</span> <span class="o">=</span> <span class="n">seq_prop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span>
-<span class="gp">... </span>    <span class="n">seq_prop</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">current_value</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">SP</span><span class="o">.</span><span class="n">data</span><span class="p">[()]</span><span class="o">.</span><span class="n">current_value</span><span class="p">())</span>
-</pre></div>
-</div>
 <p class="rubric">Methods Summary</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#deeptrack.properties.SequentialProperty.__call__" title="deeptrack.properties.SequentialProperty.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a>([_ID])</p></td>
-<td><p>Evaluate the property at the current step.</p></td>
+<td><p>Evaluate this node at ID.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#deeptrack.properties.SequentialProperty.current_value" title="deeptrack.properties.SequentialProperty.current_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_value</span></code></a>([_ID])</p></td>
-<td><p>Retrieve the value corresponding to the current step.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#deeptrack.properties.SequentialProperty.current_value" title="deeptrack.properties.SequentialProperty.current_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_value</span></code></a>(_ID)</p></td>
+<td><p>Retrieve the currently stored value at ID.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#deeptrack.properties.SequentialProperty.store" title="deeptrack.properties.SequentialProperty.store"><code class="xref py py-obj docutils literal notranslate"><span class="pre">store</span></code></a>(value[, _ID])</p></td>
-<td><p>Append value to the internal list of previously generated values.</p></td>
+<td><p>Store computed data in this node.</p></td>
 </tr>
 </tbody>
 </table>
@@ -712,21 +646,21 @@ initialization (if step=0) or current value (if step&gt;0).</p>
 <p class="rubric">Methods Documentation</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="deeptrack.properties.SequentialProperty.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_ID</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#deeptrack.properties.SequentialProperty.__call__" title="Link to this definition">#</a></dt>
-<dd><p>Evaluate the property at the current step.</p>
-<p>It returns either the initialization (if step=0) or the result of 
-<cite>self.current</cite>.</p>
-<section id="id3">
-<h3>Parameters<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deeptrack.properties.SequentialProperty.__call__" title="Link to this definition">#</a></dt>
+<dd><p>Evaluate this node at ID.</p>
+<p>If the data at <cite>_ID</cite> is valid, it returns the stored value. Otherwise, 
+it calls <cite>action</cite> to compute a new value, stores it, and returns it.</p>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <dl class="simple">
-<dt>_ID<span class="classifier">Tuple[int, …], optional</span></dt><dd><p>A unique identifier for parallel evaluations.</p>
+<dt>_ID<span class="classifier">Tuple[int, …], optional</span></dt><dd><p>The ID at which to evaluate the node’s action.</p>
 </dd>
 </dl>
 </section>
 <section id="returns">
 <h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">#</a></h3>
 <dl class="simple">
-<dt>Any</dt><dd><p>The computed value for this step.</p>
+<dt>Any</dt><dd><p>The computed or retrieved data for the given <cite>_ID</cite>.</p>
 </dd>
 </dl>
 </section>
@@ -734,21 +668,19 @@ initialization (if step=0) or current value (if step&gt;0).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="deeptrack.properties.SequentialProperty.current_value">
-<span class="sig-name descname"><span class="pre">current_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_ID</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#deeptrack.properties.SequentialProperty.current_value" title="Link to this definition">#</a></dt>
-<dd><p>Retrieve the value corresponding to the current step.</p>
-<p>It expects that each step’s value has been stored. If no value has been 
-stored for this step, it thorws an IndexError.</p>
-<section id="id4">
-<h3>Parameters<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<span class="sig-name descname"><span class="pre">current_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_ID</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deeptrack.properties.SequentialProperty.current_value" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve the currently stored value at ID.</p>
+<section id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <dl class="simple">
-<dt>_ID<span class="classifier">Tuple[int, …], optional</span></dt><dd><p>A unique identifier for separate parallel evaluations.</p>
+<dt>_ID<span class="classifier">Tuple[int, …], optional</span></dt><dd><p>The ID at which to retrieve the current value.</p>
 </dd>
 </dl>
 </section>
-<section id="id5">
-<h3>Returns<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<section id="id3">
+<h3>Returns<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <dl class="simple">
-<dt>Any</dt><dd><p>The value stored at the index = <cite>self.sequence_step(_ID=_ID)</cite>.</p>
+<dt>Any</dt><dd><p>The currently stored value for <cite>_ID</cite>.</p>
 </dd>
 </dl>
 </section>
@@ -756,24 +688,22 @@ stored for this step, it thorws an IndexError.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="deeptrack.properties.SequentialProperty.store">
-<span class="sig-name descname"><span class="pre">store</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_ID</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#deeptrack.properties.SequentialProperty.store" title="Link to this definition">#</a></dt>
-<dd><p>Append value to the internal list of previously generated values.</p>
-<p>It retrieves the existing list of values for this _ID. If this _ID has 
-never been used, it starts an empty list</p>
-<section id="id6">
-<h3>Parameters<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<span class="sig-name descname"><span class="pre">store</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deeptrack.properties.SequentialProperty.store" title="Link to this definition">#</a></dt>
+<dd><p>Store computed data in this node.</p>
+<section id="id4">
+<h3>Parameters<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <dl class="simple">
-<dt>value<span class="classifier">Any</span></dt><dd><p>The value to store, e.g., the output from calling <cite>self()</cite>.</p>
+<dt>data<span class="classifier">Any</span></dt><dd><p>The data to be store.</p>
 </dd>
-<dt>_ID<span class="classifier">Tuple[int, …], optional</span></dt><dd><p>A unique identifier that allows the property to keep separate 
-histories for different parallel evaluations.</p>
+<dt>_ID<span class="classifier">Tuple[int, …], optional</span></dt><dd><p>The index for this data. Default is the empty tuple (), indicating 
+a root-level entry.</p>
 </dd>
 </dl>
 </section>
-<section id="raises">
-<h3>Raises<a class="headerlink" href="#raises" title="Link to this heading">#</a></h3>
+<section id="id5">
+<h3>Returns<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <dl class="simple">
-<dt>KeyError</dt><dd><p>If no existing data for this _ID, it initializes an empty list.</p>
+<dt>self<span class="classifier">DeepTrackNode</span></dt><dd><p>Returns the current node for chaining.</p>
 </dd>
 </dl>
 </section>

@@ -11,6 +11,7 @@ DeepTrackNode
    .. autosummary::
 
       ~DeepTrackNode.action
+      ~DeepTrackNode.citations
 
    .. rubric:: Methods Summary
 
@@ -29,13 +30,13 @@ DeepTrackNode
       ~DeepTrackNode.recurse_dependencies
       ~DeepTrackNode.set_value
       ~DeepTrackNode.store
-      ~DeepTrackNode.update
       ~DeepTrackNode.valid_index
       ~DeepTrackNode.validate
 
    .. rubric:: Attributes Documentation
 
    .. autoattribute:: action
+   .. autoattribute:: citations
 
    .. rubric:: Methods Documentation
 
@@ -52,6 +53,5 @@ DeepTrackNode
    .. automethod:: recurse_dependencies
    .. automethod:: set_value
    .. automethod:: store
-   .. automethod:: update
    .. automethod:: valid_index
    .. automethod:: validate

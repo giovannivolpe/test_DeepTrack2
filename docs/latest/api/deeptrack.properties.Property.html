@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Property &#8212; DeepTrack2 7 documentation</title>
+    <title>Property &#8212; DeepTrack2 2024-12-21 documentation</title>
   
   
   
@@ -39,14 +39,14 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=4657d737"></script>
+    <script src="../_static/documentation_options.js?v=d1b89cdd"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/deeptrack.properties.Property';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://giovannivolpe.github.io/trial_DeepTrack2/latest/_static/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2024-12-21';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
@@ -56,7 +56,7 @@
     <link rel="prev" title="deeptrack.properties Module" href="../src/properties.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="7" />
+  <meta name="docsearch:version" content="2024-12-21" />
   </head>
   
   
@@ -118,7 +118,7 @@
   
   
   
-    <p class="title logo__title">DeepTrack2 7 documentation</p>
+    <p class="title logo__title">DeepTrack2 2024-12-21 documentation</p>
   
 </a></div>
     
@@ -500,9 +500,9 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../src/backend.mie.html">deeptrack.backend.mie Module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.coefficients.html">coefficients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.harmonics.html">harmonics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.stratified_coefficients.html">stratified_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.mie_coefficients.html">mie_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.mie_harmonics.html">mie_harmonics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.stratified_mie_coefficients.html">stratified_mie_coefficients</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../src/backend.pint_definition.html">deeptrack.backend.pint_definition Module</a></li>
@@ -624,17 +624,19 @@
 It supports various data types and structures, such as constants, 
 functions, lists, iterators, dictionaries, tuples, NumPy arrays, slices, 
 and DeepTrackNodes.</p>
-<p>The behavior of a <cite>Property</cite> depends on the type of the sampling rule:</p>
+<p>The behavior of a <cite>Property</cite> depends on the type of the sampling rule:
+- Constant values (including tuples and NumPy arrays): Always returns the</p>
+<blockquote>
+<div><p>same value.</p>
+</div></blockquote>
 <ul class="simple">
-<li><p><strong>Constant values</strong> (including tuples and NumPy arrays): Always returns the 
-same value.</p></li>
-<li><p><strong>Functions</strong>: Evaluates dynamically, potentially using other properties as 
+<li><p>Functions: Evaluates dynamically, potentially using other properties as 
 arguments.</p></li>
-<li><p><strong>Lists or dictionaries</strong>: Evaluates and samples each member individually.</p></li>
-<li><p><strong>Iterators</strong>: Returns the next value in the sequence, repeating the final 
+<li><p>Lists or dictionaries: Evaluates and samples each member individually.</p></li>
+<li><p>Iterators: Returns the next value in the sequence, repeating the final 
 value indefinitely.</p></li>
-<li><p><strong>Slices</strong>: Samples the <cite>start</cite>, <cite>stop</cite>, and <cite>step</cite> values individually.</p></li>
-<li><p><strong>DeepTrackNodes</strong> (e.g., other properties or features): Uses the value 
+<li><p>Slices: Samples the <cite>start</cite>, <cite>stop</cite>, and <cite>step</cite> values individually.</p></li>
+<li><p>DeepTrackNodes (e.g., other properties or features): Uses the value 
 computed by the node.</p></li>
 </ul>
 <p>Dependencies between properties are tracked automatically, enabling 
@@ -645,7 +647,7 @@ efficient recomputation when dependencies change.</p>
 <dt>sampling_rule<span class="classifier">Any</span></dt><dd><p>The rule for sampling values. Can be a constant, function, list, 
 dictionary, iterator, tuple, NumPy array, slice, or DeepTrackNode.</p>
 </dd>
-<dt><a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs<span class="classifier">Dict[‘Property’]</span></dt><dd><p>Additional dependencies passed as named arguments. These dependencies 
+<dt><a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs<span class="classifier">dict</span></dt><dd><p>Additional dependencies passed as named arguments. These dependencies 
 can be used as inputs to functions or other dynamic components of the 
 sampling rule.</p>
 </dd>
@@ -654,37 +656,27 @@ sampling rule.</p>
 <section id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Link to this heading">#</a></h2>
 <dl class="simple">
-<dt>create_action(sampling_rule: Any, <a href="#id3"><span class="problematic" id="id4">**</span></a>dependencies: Dict[str, Property]) -&gt; Callable[…, Any]</dt><dd><p>Creates an action that defines how the property is evaluated. The 
+<dt>create_action(sampling_rule, <a href="#id3"><span class="problematic" id="id4">**</span></a>dependencies)</dt><dd><p>Creates an action that defines how the property is evaluated. The 
 behavior of the action depends on the type of <cite>sampling_rule</cite>.</p>
 </dd>
 </dl>
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
-<p>Constant property:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">const_prop</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">const_prop</span><span class="p">()</span>  <span class="c1"># Returns 42</span>
-</pre></div>
-</div>
-<p>Dynamic property using a function:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">const_prop</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dynamic_prop</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">const_prop</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dynamic_prop</span><span class="p">()</span>  <span class="c1"># Returns 10</span>
-</pre></div>
-</div>
-<p>Property with a dictionary rule:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dict_prop</span> <span class="o">=</span> <span class="n">Property</span><span class="p">({</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="n">Property</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_prop</span><span class="p">()</span>  <span class="c1"># Returns {&quot;a&quot;: 1, &quot;b&quot;: 2}</span>
-</pre></div>
-</div>
-<p>Property with an iterable:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gen_prop</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gen_prop</span><span class="p">()</span>  <span class="c1"># Returns the next value from the generator</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gen_prop</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gen_prop</span><span class="p">()</span>  <span class="c1"># Returns the next value</span>
-</pre></div>
-</div>
+<p>Constant property:
+&gt;&gt;&gt; const_prop = Property(42)
+&gt;&gt;&gt; const_prop()  # Returns 42</p>
+<p>Dynamic property using a function:
+&gt;&gt;&gt; dynamic_prop = Property(lambda x: x * 2, x=Property(5))
+&gt;&gt;&gt; dynamic_prop()  # Returns 10</p>
+<p>Property with a dictionary rule:
+&gt;&gt;&gt; dict_prop = Property({“a”: Property(1), “b”: lambda: 2})
+&gt;&gt;&gt; dict_prop()  # Returns {“a”: 1, “b”: 2}</p>
+<p>Property with a generator:
+&gt;&gt;&gt; gen = (i for i in range(3))
+&gt;&gt;&gt; gen_prop = Property(gen)
+&gt;&gt;&gt; gen_prop()  # Returns the next value from the generator
+&gt;&gt;&gt; gen_prop()  # Returns the next value</p>
 <p class="rubric">Methods Summary</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
@@ -697,7 +689,7 @@ behavior of the action depends on the type of <cite>sampling_rule</cite>.</p>
 <p class="rubric">Methods Documentation</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="deeptrack.properties.Property.create_action">
-<span class="sig-name descname"><span class="pre">create_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sampling_rule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">slice</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="deeptrack.backend.core.DeepTrackNode.html#deeptrack.backend.core.DeepTrackNode" title="deeptrack.backend.core.DeepTrackNode"><span class="pre">DeepTrackNode</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">dependencies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#deeptrack.properties.Property" title="deeptrack.properties.Property"><span class="pre">Property</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#deeptrack.properties.Property.create_action" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sampling_rule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">slice</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="deeptrack.backend.core.DeepTrackNode.html#deeptrack.backend.core.DeepTrackNode" title="deeptrack.backend.core.DeepTrackNode"><span class="pre">DeepTrackNode</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">dependencies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#deeptrack.properties.Property" title="deeptrack.properties.Property"><span class="pre">Property</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#deeptrack.properties.Property.create_action" title="Link to this definition">#</a></dt>
 <dd><p>Creates an action defining how the property is evaluated.</p>
 <section id="id5">
 <h3>Parameters<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
@@ -708,7 +700,7 @@ DeepTrackNode, Any]</p>
 </div></blockquote>
 <p>The rule to sample values for the property.</p>
 </dd>
-<dt><a href="#id6"><span class="problematic" id="id7">**</span></a>dependencies<span class="classifier">Dict[str, Property]</span></dt><dd><p>Dependencies to be used in the sampling rule.</p>
+<dt><a href="#id6"><span class="problematic" id="id7">**</span></a>dependencies<span class="classifier">Property</span></dt><dd><p>Dependencies to be used in the sampling rule.</p>
 </dd>
 </dl>
 </section>

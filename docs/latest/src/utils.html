@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>deeptrack.utils Module &#8212; DeepTrack2 7 documentation</title>
+    <title>deeptrack.utils Module &#8212; DeepTrack2 2024-12-21 documentation</title>
   
   
   
@@ -39,14 +39,14 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=4657d737"></script>
+    <script src="../_static/documentation_options.js?v=d1b89cdd"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'src/utils';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://giovannivolpe.github.io/trial_DeepTrack2/latest/_static/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2024-12-21';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
@@ -56,7 +56,7 @@
     <link rel="prev" title="deeptrack.types Module" href="types.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="7" />
+  <meta name="docsearch:version" content="2024-12-21" />
   </head>
   
   
@@ -118,7 +118,7 @@
   
   
   
-    <p class="title logo__title">DeepTrack2 7 documentation</p>
+    <p class="title logo__title">DeepTrack2 2024-12-21 documentation</p>
   
 </a></div>
     
@@ -500,9 +500,9 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="backend.mie.html">deeptrack.backend.mie Module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.coefficients.html">coefficients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.harmonics.html">harmonics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.stratified_coefficients.html">stratified_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.mie_coefficients.html">mie_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.mie_harmonics.html">mie_harmonics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.stratified_mie_coefficients.html">stratified_mie_coefficients</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="backend.pint_definition.html">deeptrack.backend.pint_definition Module</a></li>
@@ -615,19 +615,26 @@
 <p>Utility functions.</p>
 <p>This module defines utility functions that enhance code readability, 
 streamline common operations, and ensure type and argument consistency.</p>
-<section id="module-structure">
-<h2>Module Structure<a class="headerlink" href="#module-structure" title="Link to this heading">#</a></h2>
-<p>Functions:</p>
-<ul class="simple">
-<li><p><cite>hasmethod</cite>: Checks if an object has a callable method named <cite>method_name</cite>.</p></li>
-<li><p><cite>as_list</cite>: Ensures that the input is a list.</p></li>
-<li><p><cite>get_kwarg_names</cite>: Retrieves keyword argument names accepted by a function.</p></li>
-<li><p><cite>kwarg_has_default</cite>: Checks if a function argument has a default value.</p></li>
-<li><p><cite>safe_call</cite>: Calls a function, passing only valid arguments.</p></li>
-</ul>
-</section>
 <section id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<dl class="simple">
+<dt>hasmethod(obj: Any, method_name: str) -&gt; bool</dt><dd><p>Returns <cite>True</cite> if the object has a field named <cite>method_name</cite> that is 
+callable. Otherwise, returns <cite>False</cite>.</p>
+</dd>
+<dt>as_list(obj: Any) -&gt; list</dt><dd><p>If the input is iterable, converts it to list. 
+Otherwise, wraps the input in a list.</p>
+</dd>
+<dt>get_kwarg_names(function: Callable) -&gt; List[str]</dt><dd><p>Retrieves the names of the keyword arguments accepted by a function.</p>
+</dd>
+<dt>kwarg_has_default(function: Callable, argument: str) -&gt; bool</dt><dd><p>Checks if a specific argument of a function has a default value.</p>
+</dd>
+<dt>safe_call(function, positional_args=[], <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs)</dt><dd><p>Calls a function, passing only valid arguments from the provided keyword 
+arguments (kwargs).</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h2>Functions<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="../api/deeptrack.utils.as_list.html#deeptrack.utils.as_list" title="deeptrack.utils.as_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_list</span></code></a>(obj)</p></td>
@@ -698,8 +705,8 @@ streamline common operations, and ensure type and argument consistency.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-structure">Module Structure</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Functions</a></li>
 </ul>
   </nav></div>
 

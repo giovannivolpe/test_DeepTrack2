@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>deeptrack.backend.polynomials Module &#8212; DeepTrack2 7 documentation</title>
+    <title>deeptrack.backend.polynomials Module &#8212; DeepTrack2 2024-12-21 documentation</title>
   
   
   
@@ -39,14 +39,14 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=4657d737"></script>
+    <script src="../_static/documentation_options.js?v=d1b89cdd"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'src/backend.polynomials';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://giovannivolpe.github.io/trial_DeepTrack2/latest/_static/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2024-12-21';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
@@ -56,7 +56,7 @@
     <link rel="prev" title="deeptrack.backend.pint_definition Module" href="backend.pint_definition.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="7" />
+  <meta name="docsearch:version" content="2024-12-21" />
   </head>
   
   
@@ -118,7 +118,7 @@
   
   
   
-    <p class="title logo__title">DeepTrack2 7 documentation</p>
+    <p class="title logo__title">DeepTrack2 2024-12-21 documentation</p>
   
 </a></div>
     
@@ -500,9 +500,9 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="backend.mie.html">deeptrack.backend.mie Module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.coefficients.html">coefficients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.harmonics.html">harmonics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.stratified_coefficients.html">stratified_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.mie_coefficients.html">mie_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.mie_harmonics.html">mie_harmonics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.stratified_mie_coefficients.html">stratified_mie_coefficients</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="backend.pint_definition.html">deeptrack.backend.pint_definition Module</a></li>
@@ -613,61 +613,104 @@
   <section id="module-deeptrack.backend.polynomials">
 <span id="deeptrack-backend-polynomials-module"></span><h1>deeptrack.backend.polynomials Module<a class="headerlink" href="#module-deeptrack.backend.polynomials" title="Link to this heading">#</a></h1>
 <p>Bessel and Riccati-Bessel polynomials.</p>
-<p>This module defines a set of functions for computing Bessel and Riccati-Bessel 
-polynomials and their derivatives. It expands the corresponding capabilities of 
-<cite>scipy</cite>.</p>
-<section id="module-structure">
-<h2>Module Structure<a class="headerlink" href="#module-structure" title="Link to this heading">#</a></h2>
-<p>Functions:</p>
-<ul class="simple">
-<li><p><cite>besselj</cite>: Bessel polynomial of the 1st kind.</p></li>
-<li><p><cite>dbesselj</cite>: First derivative of the Bessel polynomial of the 1st kind.</p></li>
-<li><p><cite>bessely</cite>: Bessel polynomial of the 2nd kind.</p></li>
-<li><p><cite>dbessely</cite>: First derivative of the Bessel polynomial of the 2nd kind.</p></li>
-<li><p><cite>ricbesj</cite>: Riccati-Bessel polynomial of the 1st kind.</p></li>
-<li><p><cite>dricbesj</cite>: First derivative of the Riccati-Bessel polynomial of the 1st kind.</p></li>
-<li><p><cite>ricbesy</cite>: Riccati-Bessel polynomial of the 2nd kind.</p></li>
-<li><p><cite>dricbesy</cite>: First derivative of the Riccati-Bessel polynomial of the 2nd kind.</p></li>
-<li><p><cite>ricbesh</cite>: Riccati-Bessel polynomial of the 3rd kind.</p></li>
-<li><p><cite>dricbesh</cite>: First derivative of the Riccati-Bessel polynomial of the 3rd kind.</p></li>
-</ul>
-</section>
+<p>This file defines a set of functions for computing Bessel and Riccati-Bessel 
+polynomials and their derivatives. It expands the capabilities of <cite>scipy</cite>.</p>
 <section id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<dl class="simple">
+<dt>besselj(</dt><dd><p>l: Union[int, float],
+x: Union[int, float, np.ndarray]</p>
+</dd>
+<dt>) -&gt; Union[float, np.ndarray]</dt><dd><p>Computes the Bessel polynomial of the first kind for a given order <cite>l</cite>
+and input <cite>x</cite>.</p>
+</dd>
+<dt>dbesselj(</dt><dd><p>l: Union[int, float],
+x: Union[int, float, np.ndarray]</p>
+</dd>
+<dt>) -&gt; Union[float, np.ndarray]</dt><dd><p>Computes the first derivative of the Bessel polynomial of the first kind.</p>
+</dd>
+<dt>bessely(</dt><dd><p>l: Union[int, float], 
+x: Union[int, float, np.ndarray]</p>
+</dd>
+<dt>) -&gt; Union[float, np.ndarray]</dt><dd><p>Computes the Bessel polynomial of the second kind for a given order <cite>l</cite>
+and input <cite>x</cite>.</p>
+</dd>
+<dt>dbessely(</dt><dd><p>l: Union[int, float], 
+x: Union[int, float, np.ndarray]</p>
+</dd>
+<dt>) -&gt; Union[float, np.ndarray]</dt><dd><p>Computes the first derivative of the Bessel polynomial of the second kind.</p>
+</dd>
+<dt>ricbesj(</dt><dd><p>l: Union[int, float], 
+x: Union[int, float, np.ndarray]</p>
+</dd>
+<dt>) -&gt; Union[float, np.ndarray]</dt><dd><p>Computes the Riccati-Bessel polynomial of the first kind.</p>
+</dd>
+<dt>dricbesj(</dt><dd><p>l: Union[int, float], 
+x: Union[int, float, np.ndarray]</p>
+</dd>
+<dt>) -&gt; Union[float, np.ndarray]</dt><dd><p>Computes the first derivative of the Riccati-Bessel polynomial of the
+first kind.</p>
+</dd>
+<dt>ricbesy(</dt><dd><p>l: Union[int, float], 
+x: Union[int, float, np.ndarray]</p>
+</dd>
+<dt>) -&gt; Union[float, np.ndarray]</dt><dd><p>Computes the Riccati-Bessel polynomial of the second kind.</p>
+</dd>
+<dt>dricbesy(</dt><dd><p>l: Union[int, float], 
+x: Union[int, float, np.ndarray]</p>
+</dd>
+<dt>) -&gt; Union[float, np.ndarray]</dt><dd><p>Computes the first derivative of the Riccati-Bessel polynomial of the
+second kind.</p>
+</dd>
+<dt>ricbesh(</dt><dd><p>l: Union[int, float], 
+x: Union[int, float, np.ndarray]</p>
+</dd>
+<dt>) -&gt; Union[float, np.ndarray]</dt><dd><p>Computes the Riccati-Bessel polynomial of the third kind.</p>
+</dd>
+<dt>dricbesh(</dt><dd><p>l: Union[int, float], 
+x: Union[int, float, np.ndarray]</p>
+</dd>
+<dt>) -&gt; Union[float, np.ndarray]</dt><dd><p>Computes the first derivative of the Riccati-Bessel polynomial of the
+third kind.</p>
+</dd>
+</dl>
+</section>
+<section id="id1">
+<h2>Functions<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="../api/deeptrack.backend.polynomials.besselj.html#deeptrack.backend.polynomials.besselj" title="deeptrack.backend.polynomials.besselj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">besselj</span></code></a>(l, x)</p></td>
-<td><p>The Bessel polynomial of the 1st kind.</p></td>
+<td><p>The Bessel polynomial of the first kind.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="../api/deeptrack.backend.polynomials.bessely.html#deeptrack.backend.polynomials.bessely" title="deeptrack.backend.polynomials.bessely"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bessely</span></code></a>(l, x)</p></td>
-<td><p>The Bessel polynomial of the 2nd kind.</p></td>
+<td><p>The Bessel polynomial of the second kind.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="../api/deeptrack.backend.polynomials.dbesselj.html#deeptrack.backend.polynomials.dbesselj" title="deeptrack.backend.polynomials.dbesselj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dbesselj</span></code></a>(l, x)</p></td>
-<td><p>The first derivative of the Bessel polynomial of the 1st kind.</p></td>
+<td><p>The first derivative of the Bessel polynomial of the first kind.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="../api/deeptrack.backend.polynomials.dbessely.html#deeptrack.backend.polynomials.dbessely" title="deeptrack.backend.polynomials.dbessely"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dbessely</span></code></a>(l, x)</p></td>
-<td><p>The first derivative of the Bessel polynomial of the 2nd kind.</p></td>
+<td><p>The first derivative of the Bessel polynomial of the second kind.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="../api/deeptrack.backend.polynomials.dricbesh.html#deeptrack.backend.polynomials.dricbesh" title="deeptrack.backend.polynomials.dricbesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dricbesh</span></code></a>(l, x)</p></td>
-<td><p>The first derivative of the Riccati-Bessel polynomial of the 3rd kind.</p></td>
+<td><p>The first derivative of the Riccati-Bessel polynomial of the third kind.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="../api/deeptrack.backend.polynomials.dricbesj.html#deeptrack.backend.polynomials.dricbesj" title="deeptrack.backend.polynomials.dricbesj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dricbesj</span></code></a>(l, x)</p></td>
-<td><p>The first derivative of the Riccati-Bessel polynomial of the 1st kind.</p></td>
+<td><p>The first derivative of the Riccati-Bessel polynomial of the first kind.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="../api/deeptrack.backend.polynomials.dricbesy.html#deeptrack.backend.polynomials.dricbesy" title="deeptrack.backend.polynomials.dricbesy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dricbesy</span></code></a>(l, x)</p></td>
-<td><p>The first derivative of the Riccati-Bessel polynomial of the 2nd kind.</p></td>
+<td><p>The first derivative of the Riccati-Bessel polynomial of the second kind.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">h1vp</span></code>(v, z[, n])</p></td>
 <td><p>Compute derivatives of Hankel function H1v(z) with respect to <cite>z</cite>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="../api/deeptrack.backend.polynomials.ricbesh.html#deeptrack.backend.polynomials.ricbesh" title="deeptrack.backend.polynomials.ricbesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ricbesh</span></code></a>(l, x)</p></td>
-<td><p>The Riccati-Bessel polynomial of the 3rd kind.</p></td>
+<td><p>The Riccati-Bessel polynomial of the third kind.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="../api/deeptrack.backend.polynomials.ricbesj.html#deeptrack.backend.polynomials.ricbesj" title="deeptrack.backend.polynomials.ricbesj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ricbesj</span></code></a>(l, x)</p></td>
-<td><p>The Riccati-Bessel polynomial of the 1st kind.</p></td>
+<td><p>The Riccati-Bessel polynomial of the first kind.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="../api/deeptrack.backend.polynomials.ricbesy.html#deeptrack.backend.polynomials.ricbesy" title="deeptrack.backend.polynomials.ricbesy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ricbesy</span></code></a>(l, x)</p></td>
-<td><p>The Riccati-Bessel polynomial of the 2nd kind.</p></td>
+<td><p>The Riccati-Bessel polynomial of the second kind.</p></td>
 </tr>
 </tbody>
 </table>
@@ -722,8 +765,8 @@ polynomials and their derivatives. It expands the corresponding capabilities of
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-structure">Module Structure</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Functions</a></li>
 </ul>
   </nav></div>
 

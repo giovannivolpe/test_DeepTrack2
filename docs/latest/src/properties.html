@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>deeptrack.properties Module &#8212; DeepTrack2 7 documentation</title>
+    <title>deeptrack.properties Module &#8212; DeepTrack2 2024-12-21 documentation</title>
   
   
   
@@ -39,14 +39,14 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=4657d737"></script>
+    <script src="../_static/documentation_options.js?v=d1b89cdd"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'src/properties';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://giovannivolpe.github.io/trial_DeepTrack2/latest/_static/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2024-12-21';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
@@ -56,7 +56,7 @@
     <link rel="prev" title="Optics" href="../api/deeptrack.optics.Optics.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="7" />
+  <meta name="docsearch:version" content="2024-12-21" />
   </head>
   
   
@@ -118,7 +118,7 @@
   
   
   
-    <p class="title logo__title">DeepTrack2 7 documentation</p>
+    <p class="title logo__title">DeepTrack2 2024-12-21 documentation</p>
   
 </a></div>
     
@@ -500,9 +500,9 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="backend.mie.html">deeptrack.backend.mie Module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.coefficients.html">coefficients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.harmonics.html">harmonics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.stratified_coefficients.html">stratified_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.mie_coefficients.html">mie_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.mie_harmonics.html">mie_harmonics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.stratified_mie_coefficients.html">stratified_mie_coefficients</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="backend.pint_definition.html">deeptrack.backend.pint_definition Module</a></li>
@@ -613,49 +613,37 @@
   <section id="module-deeptrack.properties">
 <span id="deeptrack-properties-module"></span><h1>deeptrack.properties Module<a class="headerlink" href="#module-deeptrack.properties" title="Link to this heading">#</a></h1>
 <p>Tools to manage feature properties in DeepTrack2.</p>
-<p>This module provides classes for managing, sampling, and evaluating properties 
-of features within the DeepTrack2 framework. It offers flexibility in defining 
-and handling properties with various data types, dependencies, and sampling 
-rules.</p>
+<p>This package provides classes and functions for managing, sampling, and 
+evaluating properties of features within the DeepTrack2 framework. It offers 
+flexibility in defining and handling properties with various data types, 
+dependencies, and sampling rules.</p>
 <section id="main-features">
 <h2>Main Features<a class="headerlink" href="#main-features" title="Link to this heading">#</a></h2>
-<ul>
-<li><p><strong>Property Management</strong></p>
-<blockquote>
-<div><p>Classes like <cite>Property</cite> and <cite>PropertyDict</cite> provide tools 
+<p>Property Management: Classes like <cite>Property</cite> and <cite>PropertyDict</cite> provide tools 
 for defining, sampling, and evaluating properties. These properties can be 
-constants, functions, lists, dictionaries, iterators, or slices, allowing 
-for dynamic and context-dependent evaluations.</p>
-</div></blockquote>
-</li>
-</ul>
-<p><strong>Sequential Sampling</strong></p>
-<blockquote>
-<div><p>The <cite>SequentialProperty</cite> class enables the creation of properties that 
-evolve over a sequence, useful for applications like creating dynamic 
-features in videos or time-series data.</p>
-</div></blockquote>
+constants, functions, lists, dictionaries, iterators, or slices, allowing for 
+dynamic and context-dependent evaluations.</p>
+<p>Sequential Sampling: The <cite>SequentialProperty</cite> class enables the creation of 
+properties that evolve over a sequence, useful for applications like creating 
+dynamic features in videos or time-series data.</p>
 </section>
-<section id="model-structure">
-<h2>Model Structure<a class="headerlink" href="#model-structure" title="Link to this heading">#</a></h2>
-<p>Property Classes:</p>
-<ul>
-<li><p><cite>Property</cite>: Property of a feature.</p>
+<section id="package-structure">
+<h2>Package Structure<a class="headerlink" href="#package-structure" title="Link to this heading">#</a></h2>
+<p>Property Classes:
+- <cite>Property</cite>: Defines a single property of a feature, supporting various data</p>
 <blockquote>
-<div><p>Defines a single property of a feature, supporting various data types and 
-dynamic evaluations.</p>
+<div><p>types and dynamic evaluations.</p>
 </div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt><cite>SequentialProperty</cite>: Extends <cite>Property</cite> to support sequential sampling </dt><dd><p>across steps.</p>
+</dd>
+</dl>
 </li>
-<li><p><cite>SequentialProperty</cite>: Property for sequential sampling.</p>
-<blockquote>
-<div><p>Extends <cite>Property</cite> to support sequential sampling across steps.</p>
-</div></blockquote>
-</li>
-<li><p><cite>PropertyDict</cite>: Property dictionary.</p>
-<blockquote>
-<div><p>A dictionary of properties with utilities for dependency management and 
-sampling.</p>
-</div></blockquote>
+<li><dl class="simple">
+<dt><cite>PropertyDict</cite>: A dictionary of properties with utilities for dependency </dt><dd><p>management and sampling.</p>
+</dd>
+</dl>
 </li>
 </ul>
 </section>
@@ -667,8 +655,7 @@ sampling.</p>
 </pre></div>
 </div>
 <p>Define a dynamic property dependent on another:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">const_prop</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dynamic_prop</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">const_prop</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dynamic_prop</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">Property</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dynamic_prop</span><span class="p">()</span>  <span class="c1"># Returns 10</span>
 </pre></div>
 </div>
@@ -676,21 +663,18 @@ sampling.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prop_dict</span> <span class="o">=</span> <span class="n">PropertyDict</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">constant</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">dependent</span><span class="o">=</span><span class="k">lambda</span> <span class="n">constant</span><span class="p">:</span> <span class="n">constant</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">random</span><span class="o">=</span><span class="k">lambda</span> <span class="n">dependent</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">+</span> <span class="n">dependent</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">prop_dict</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]())</span>  <span class="c1"># Returns 42</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">prop_dict</span><span class="p">[</span><span class="s2">&quot;dependent&quot;</span><span class="p">]())</span>  <span class="c1"># Returns 52</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">prop_dict</span><span class="p">[</span><span class="s2">&quot;random&quot;</span><span class="p">]())</span>
 </pre></div>
 </div>
 <p>Handle sequential properties:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">seq_prop</span> <span class="o">=</span> <span class="n">SequentialProperty</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">seq_prop</span> <span class="o">=</span> <span class="n">SequentialProperty</span><span class="p">(</span><span class="n">initialization</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">())</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">seq_prop</span><span class="o">.</span><span class="n">sequence_length</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">SP</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_ID</span><span class="o">=</span><span class="p">():</span> <span class="n">SP</span><span class="o">.</span><span class="n">sequence_step</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SP</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">()):</span>
-<span class="gp">... </span>    <span class="n">SP</span><span class="o">.</span><span class="n">sequence_step</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">SP</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">SP</span><span class="o">.</span><span class="n">current</span><span class="p">())</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">SP</span><span class="o">.</span><span class="n">data</span><span class="p">[()]</span><span class="o">.</span><span class="n">current_value</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">seq_prop</span><span class="o">.</span><span class="n">sequence_step</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">seq_prop</span><span class="p">())</span>  <span class="c1"># Returns different values for each step</span>
 </pre></div>
 </div>
 </section>
@@ -705,10 +689,10 @@ sampling.</p>
 <td><p>Property of a feature in the DeepTrack2 framework.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="../api/deeptrack.properties.PropertyDict.html#deeptrack.properties.PropertyDict" title="deeptrack.properties.PropertyDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PropertyDict</span></code></a>(**kwargs)</p></td>
-<td><p>Dictionary with Property elements.</p></td>
+<td><p>Dictionary with Property elements</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="../api/deeptrack.properties.SequentialProperty.html#deeptrack.properties.SequentialProperty" title="deeptrack.properties.SequentialProperty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SequentialProperty</span></code></a>([initialization])</p></td>
-<td><p>Property that yields different values for sequential steps.</p></td>
+<td><p>Property that has multiple sequential values</p></td>
 </tr>
 </tbody>
 </table>
@@ -764,7 +748,7 @@ sampling.</p>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-features">Main Features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-structure">Model Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-structure">Package Structure</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
 </ul>

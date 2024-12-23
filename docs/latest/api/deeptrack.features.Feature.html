@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Feature &#8212; DeepTrack2 7 documentation</title>
+    <title>Feature &#8212; DeepTrack2 2024-12-21 documentation</title>
   
   
   
@@ -39,14 +39,14 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=4657d737"></script>
+    <script src="../_static/documentation_options.js?v=d1b89cdd"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/deeptrack.features.Feature';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://giovannivolpe.github.io/trial_DeepTrack2/latest/_static/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2024-12-21';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
@@ -56,7 +56,7 @@
     <link rel="prev" title="ExpandDims" href="deeptrack.features.ExpandDims.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="7" />
+  <meta name="docsearch:version" content="2024-12-21" />
   </head>
   
   
@@ -118,7 +118,7 @@
   
   
   
-    <p class="title logo__title">DeepTrack2 7 documentation</p>
+    <p class="title logo__title">DeepTrack2 2024-12-21 documentation</p>
   
 </a></div>
     
@@ -500,9 +500,9 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../src/backend.mie.html">deeptrack.backend.mie Module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.coefficients.html">coefficients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.harmonics.html">harmonics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.stratified_coefficients.html">stratified_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.mie_coefficients.html">mie_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.mie_harmonics.html">mie_harmonics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.stratified_mie_coefficients.html">stratified_mie_coefficients</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../src/backend.pint_definition.html">deeptrack.backend.pint_definition Module</a></li>
@@ -730,7 +730,7 @@ overrides from <cite>kwargs</cite>.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#deeptrack.features.Feature.torch" title="deeptrack.features.Feature.torch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch</span></code></a>([dtype, device, permute_mode])</p></td>
 <td><p>Convert the feature to a PyTorch feature.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#deeptrack.features.Feature.update" title="deeptrack.features.Feature.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>(**global_arguments)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#deeptrack.features.Feature.update" title="deeptrack.features.Feature.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>(**_)</p></td>
 <td><p>Refresh the feature to create a new image.</p></td>
 </tr>
 </tbody>
@@ -952,7 +952,7 @@ affected by these overrides.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="deeptrack.features.Feature.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">global_arguments</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deeptrack.features.Feature.update" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deeptrack.features.Feature.update" title="Link to this definition">#</a></dt>
 <dd><p>Refresh the feature to create a new image.</p>
 <p>Per default, when a feature is called multiple times, it will return the same value.
 To tell the feature to return a new value, we first call <cite>update</cite>.</p>

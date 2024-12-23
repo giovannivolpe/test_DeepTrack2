@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>DeepTrackNode &#8212; DeepTrack2 7 documentation</title>
+    <title>DeepTrackNode &#8212; DeepTrack2 2024-12-21 documentation</title>
   
   
   
@@ -39,14 +39,14 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=4657d737"></script>
+    <script src="../_static/documentation_options.js?v=d1b89cdd"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/deeptrack.backend.core.DeepTrackNode';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://giovannivolpe.github.io/trial_DeepTrack2/latest/_static/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2024-12-21';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
@@ -56,7 +56,7 @@
     <link rel="prev" title="DeepTrackDataObject" href="deeptrack.backend.core.DeepTrackDataObject.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="7" />
+  <meta name="docsearch:version" content="2024-12-21" />
   </head>
   
   
@@ -118,7 +118,7 @@
   
   
   
-    <p class="title logo__title">DeepTrack2 7 documentation</p>
+    <p class="title logo__title">DeepTrack2 2024-12-21 documentation</p>
   
 </a></div>
     
@@ -500,9 +500,9 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../src/backend.mie.html">deeptrack.backend.mie Module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.coefficients.html">coefficients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.harmonics.html">harmonics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.stratified_coefficients.html">stratified_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.mie_coefficients.html">mie_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.mie_harmonics.html">mie_harmonics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deeptrack.backend.mie.stratified_mie_coefficients.html">stratified_mie_coefficients</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../src/backend.pint_definition.html">deeptrack.backend.pint_definition Module</a></li>
@@ -629,17 +629,17 @@ calling its <cite>action</cite> method.</p>
 <dl class="simple">
 <dt>data<span class="classifier">DeepTrackDataDict</span></dt><dd><p>Dictionary-like object for storing data, indexed by tuples of integers.</p>
 </dd>
-<dt>children<span class="classifier">WeakSet[DeepTrackNode]</span></dt><dd><p>Nodes that depend on this node (its children, grandchildren, etc.).</p>
+<dt>children<span class="classifier">WeakSet[DeepTrackNode]</span></dt><dd><p>Nodes that depend on this node (its parents, grandparents, etc.).</p>
 </dd>
-<dt>dependencies<span class="classifier">WeakSet[DeepTrackNode]</span></dt><dd><p>Nodes on which this node depends (its parents, grandparents, etc.).</p>
+<dt>dependencies<span class="classifier">WeakSet[DeepTrackNode]</span></dt><dd><p>Nodes on which this node depends (its children, grandchildren, etc.).</p>
 </dd>
 <dt>_action<span class="classifier">Callable</span></dt><dd><p>The function or lambda-function to compute the node value.</p>
 </dd>
 <dt>_accepts_ID<span class="classifier">bool</span></dt><dd><p>Whether <cite>action</cite> accepts an input ID.</p>
 </dd>
-<dt>_all_children<span class="classifier">Set[DeepTrackNode]</span></dt><dd><p>All nodes in the subtree rooted at the node, including the node itself.</p>
+<dt>_all_subchildren<span class="classifier">Set[DeepTrackNode]</span></dt><dd><p>All nodes in the subtree rooted at this node, including itself.</p>
 </dd>
-<dt>_citations<span class="classifier">List[str]</span></dt><dd><p>Citations associated with this node.</p>
+<dt>citations<span class="classifier">List[str]</span></dt><dd><p>Citations associated with this node.</p>
 </dd>
 </dl>
 </section>
@@ -649,10 +649,9 @@ calling its <cite>action</cite> method.</p>
 <dt>action<span class="classifier">property</span></dt><dd><p>Gets or sets the computation function for the node.</p>
 </dd>
 <dt>add_child(child: DeepTrackNode) -&gt; DeepTrackNode</dt><dd><p>Adds a child node that depends on this node.
-Also adds the dependency in the child node on this node.</p>
+Also adds the dependency between the two nodes.</p>
 </dd>
-<dt>add_dependency(parent: DeepTrackNode) -&gt; DeepTrackNode</dt><dd><p>Adds a dependency, making this node depend on the parent node.
-It also sets this node as a child of the parent node.</p>
+<dt>add_dependency(other: DeepTrackNode) -&gt; DeepTrackNode</dt><dd><p>Adds a dependency, making this node depend on the given node.</p>
 </dd>
 <dt>store(data: Any, _ID: Tuple[int, …] = ()) -&gt; DeepTrackNode</dt><dd><p>Stores computed data for the given <cite>_ID</cite>.</p>
 </dd>
@@ -665,7 +664,7 @@ It also sets this node as a child of the parent node.</p>
 <dt>validate(_ID: Tuple[int, …] = ()) -&gt; DeepTrackNode</dt><dd><p>Validates the data for the given <cite>_ID</cite>, marking it as up-to-date, but 
 not its children.</p>
 </dd>
-<dt>update() -&gt; DeepTrackNode</dt><dd><p>Resets the data.</p>
+<dt>_update() -&gt; DeepTrackNode</dt><dd><p>Internal method to reset data.</p>
 </dd>
 <dt>set_value(value: Any, _ID: Tuple[int, …] = ()) -&gt; DeepTrackNode</dt><dd><p>Sets a value for the given <cite>_ID</cite>. If the new value differs from the 
 current value, the node is invalidated to ensure dependencies are 
@@ -674,9 +673,13 @@ recomputed.</p>
 <dt>previous(_ID: Tuple[int, …] = ()) -&gt; Any</dt><dd><p>Returns the previously stored value for the given <cite>_ID</cite> without 
 recomputing it.</p>
 </dd>
-<dt>recurse_children(memory: Optional[Set[DeepTrackNode]] = None) -&gt; Set[DeepTrackNode]</dt><dd><p>Returns all child nodes in the dependency tree rooted at this node.</p>
+<dt>recurse_children(</dt><dd><p>memory: Optional[Set[DeepTrackNode]] = None</p>
 </dd>
-<dt>recurse_dependencies(memory: Optional[List[DeepTrackNode]] = None) -&gt; Iterator[DeepTrackNode]</dt><dd><p>Yields all nodes that this node depends on, traversing dependencies.</p>
+<dt>) -&gt; Set[DeepTrackNode]</dt><dd><p>Returns all child nodes in the dependency tree rooted at this node.</p>
+</dd>
+<dt>recurse_dependencies(</dt><dd><p>memory: Optional[List[DeepTrackNode]] = None</p>
+</dd>
+<dt>) -&gt; Iterator[DeepTrackNode]</dt><dd><p>Yields all nodes that this node depends on, traversing dependencies.</p>
 </dd>
 <dt>get_citations() -&gt; Set[str]</dt><dd><p>Returns a set of citations for this node and its dependencies.</p>
 </dd>
@@ -736,6 +739,9 @@ recomputation.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode.action" title="deeptrack.backend.core.DeepTrackNode.action"><code class="xref py py-obj docutils literal notranslate"><span class="pre">action</span></code></a></p></td>
 <td><p>Callable: The function that computes this node’s value.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode.citations" title="deeptrack.backend.core.DeepTrackNode.citations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">citations</span></code></a></p></td>
+<td><p></p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -770,7 +776,7 @@ recomputation.</p>
 <td><p>Retrieve the previously stored value at ID without recomputing.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode.recurse_children" title="deeptrack.backend.core.DeepTrackNode.recurse_children"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recurse_children</span></code></a>([memory])</p></td>
-<td><p>Return all children of this node.</p></td>
+<td><p>Return all subchildren of this node.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode.recurse_dependencies" title="deeptrack.backend.core.DeepTrackNode.recurse_dependencies"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recurse_dependencies</span></code></a>([memory])</p></td>
 <td><p>Yield all dependencies of this node, ensuring each is visited once.</p></td>
@@ -781,13 +787,10 @@ recomputation.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode.store" title="deeptrack.backend.core.DeepTrackNode.store"><code class="xref py py-obj docutils literal notranslate"><span class="pre">store</span></code></a>(data[, _ID])</p></td>
 <td><p>Store computed data in this node.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode.update" title="deeptrack.backend.core.DeepTrackNode.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>()</p></td>
-<td><p>Reset data in all children.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode.valid_index" title="deeptrack.backend.core.DeepTrackNode.valid_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">valid_index</span></code></a>(_ID)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode.valid_index" title="deeptrack.backend.core.DeepTrackNode.valid_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">valid_index</span></code></a>(_ID)</p></td>
 <td><p>Check if ID is a valid index for this node’s data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode.validate" title="deeptrack.backend.core.DeepTrackNode.validate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate</span></code></a>([_ID])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode.validate" title="deeptrack.backend.core.DeepTrackNode.validate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate</span></code></a>([_ID])</p></td>
 <td><p>Mark this node’s data as valid.</p></td>
 </tr>
 </tbody>
@@ -800,8 +803,13 @@ recomputation.</p>
 <dd><p>Callable: The function that computes this node’s value.</p>
 <p>When accessed, returns the current action. This is often a function or 
 lambda-function  that takes <cite>_ID</cite> as an optional parameter if 
-<cite>_accepts_ID</cite> is <cite>True</cite>.</p>
+<cite>_accepts_ID</cite> is True.</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deeptrack.backend.core.DeepTrackNode.citations">
+<span class="sig-name descname"><span class="pre">citations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['\n&#64;article{Midtvet2021Quantitative,\n</span>&#160;&#160;&#160; <span class="pre">author</span>&#160; <span class="pre">=</span> <span class="pre">{Midtvedt,</span> <span class="pre">Benjamin</span> <span class="pre">and</span> <span class="pre">Helgadottir,</span> <span class="pre">Saga</span> <span class="pre">and</span> <span class="pre">Argun,</span> <span class="pre">Aykut</span> <span class="pre">and</span> <span class="pre">\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">Pineda,</span> <span class="pre">Jesús</span> <span class="pre">and</span> <span class="pre">Midtvedt,</span> <span class="pre">Daniel</span> <span class="pre">and</span> <span class="pre">Volpe,</span> <span class="pre">Giovanni},\n</span>&#160;&#160;&#160; <span class="pre">title</span>&#160;&#160; <span class="pre">=</span> <span class="pre">{Quantitative</span> <span class="pre">digital</span> <span class="pre">microscopy</span> <span class="pre">with</span> <span class="pre">deep</span> <span class="pre">learning},\n</span>&#160;&#160;&#160; <span class="pre">journal</span> <span class="pre">=</span> <span class="pre">{Applied</span> <span class="pre">Physics</span> <span class="pre">Reviews},\n</span>&#160;&#160;&#160; <span class="pre">volume</span>&#160; <span class="pre">=</span> <span class="pre">{8},\n</span>&#160;&#160;&#160; <span class="pre">number</span>&#160; <span class="pre">=</span> <span class="pre">{1},\n</span>&#160;&#160;&#160; <span class="pre">pages</span>&#160;&#160; <span class="pre">=</span> <span class="pre">{011310},\n</span>&#160;&#160;&#160; <span class="pre">year</span>&#160;&#160;&#160; <span class="pre">=</span> <span class="pre">{2021},\n</span>&#160;&#160;&#160; <span class="pre">doi</span>&#160;&#160;&#160;&#160; <span class="pre">=</span> <span class="pre">{10.1063/5.0034891}\n}\n']</span></em><a class="headerlink" href="#deeptrack.backend.core.DeepTrackNode.citations" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
 
 <p class="rubric">Methods Documentation</p>
 <dl class="py method">
@@ -830,7 +838,7 @@ it calls <cite>action</cite> to compute a new value, stores it, and returns it.<
 <dt class="sig sig-object py" id="deeptrack.backend.core.DeepTrackNode.add_child">
 <span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode" title="deeptrack.backend.core.DeepTrackNode"><span class="pre">DeepTrackNode</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode" title="deeptrack.backend.core.DeepTrackNode"><span class="pre">DeepTrackNode</span></a></span></span><a class="headerlink" href="#deeptrack.backend.core.DeepTrackNode.add_child" title="Link to this definition">#</a></dt>
 <dd><p>Add a child node to the current node.</p>
-<p>Adding a child also updates <cite>_all_children</cite> for this node and all 
+<p>Adding a child also updates <cite>_all_subchildren</cite> for this node and all 
 its dependencies. It also ensures that dependency and child 
 relationships remain consistent.</p>
 <section id="id1">
@@ -895,7 +903,7 @@ this node’s data may become invalid.</p>
 <span class="sig-name descname"><span class="pre">get_citations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#deeptrack.backend.core.DeepTrackNode.get_citations" title="Link to this definition">#</a></dt>
 <dd><p>Get citations from this node and all its dependencies.</p>
 <p>It gathers citations from this node and all nodes that it depends on. 
-Citations are stored as the class attribute <cite>_citations</cite>.</p>
+Citations are stored as a class attribute <cite>citations</cite>.</p>
 <section id="id7">
 <h3>Returns<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 <dl class="simple">
@@ -1000,7 +1008,7 @@ Returns <cite>[]</cite> if <cite>_ID</cite> is not a valid index.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="deeptrack.backend.core.DeepTrackNode.recurse_children">
 <span class="sig-name descname"><span class="pre">recurse_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode" title="deeptrack.backend.core.DeepTrackNode"><span class="pre">DeepTrackNode</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode" title="deeptrack.backend.core.DeepTrackNode"><span class="pre">DeepTrackNode</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#deeptrack.backend.core.DeepTrackNode.recurse_children" title="Link to this definition">#</a></dt>
-<dd><p>Return all children of this node.</p>
+<dd><p>Return all subchildren of this node.</p>
 <section id="id15">
 <h3>Parameters<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
 <dl class="simple">
@@ -1068,7 +1076,7 @@ invalid), it will invalidate the old data before storing the new one.</p>
 <section id="id21">
 <h3>Parameters<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
 <dl class="simple">
-<dt>data<span class="classifier">Any</span></dt><dd><p>The data to be stored.</p>
+<dt>data<span class="classifier">Any</span></dt><dd><p>The data to be store.</p>
 </dd>
 <dt>_ID<span class="classifier">Tuple[int, …], optional</span></dt><dd><p>The index for this data. Default is the empty tuple (), indicating 
 a root-level entry.</p>
@@ -1085,34 +1093,18 @@ a root-level entry.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="deeptrack.backend.core.DeepTrackNode.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode" title="deeptrack.backend.core.DeepTrackNode"><span class="pre">DeepTrackNode</span></a></span></span><a class="headerlink" href="#deeptrack.backend.core.DeepTrackNode.update" title="Link to this definition">#</a></dt>
-<dd><p>Reset data in all children.</p>
-<p>This method resets <cite>data</cite> for all children of each dependency, 
-effectively clearing cached values to force a recomputation on the next 
-evaluation.</p>
-<section id="id23">
-<h3>Returns<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
-<dl class="simple">
-<dt>self<span class="classifier">DeepTrackNode</span></dt><dd><p>Returns the current node for chaining.</p>
-</dd>
-</dl>
-</section>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="deeptrack.backend.core.DeepTrackNode.valid_index">
 <span class="sig-name descname"><span class="pre">valid_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_ID</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#deeptrack.backend.core.DeepTrackNode.valid_index" title="Link to this definition">#</a></dt>
 <dd><p>Check if ID is a valid index for this node’s data.</p>
-<section id="id24">
-<h3>Parameters<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<section id="id23">
+<h3>Parameters<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
 <dl class="simple">
 <dt>_ID<span class="classifier">Tuple[int, …]</span></dt><dd><p>The ID to validate.</p>
 </dd>
 </dl>
 </section>
-<section id="id25">
-<h3>Returns<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<section id="id24">
+<h3>Returns<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
 <dl class="simple">
 <dt>bool</dt><dd><p><cite>True</cite> if <cite>_ID</cite> is valid, otherwise <cite>False</cite>.</p>
 </dd>
@@ -1124,15 +1116,15 @@ evaluation.</p>
 <dt class="sig sig-object py" id="deeptrack.backend.core.DeepTrackNode.validate">
 <span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_ID</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#deeptrack.backend.core.DeepTrackNode" title="deeptrack.backend.core.DeepTrackNode"><span class="pre">DeepTrackNode</span></a></span></span><a class="headerlink" href="#deeptrack.backend.core.DeepTrackNode.validate" title="Link to this definition">#</a></dt>
 <dd><p>Mark this node’s data as valid.</p>
-<section id="id26">
-<h3>Parameters<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<section id="id25">
+<h3>Parameters<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
 <dl class="simple">
 <dt>_ID<span class="classifier">Tuple[int, …], optional</span></dt><dd><p>The ID to validate. Default is empty tuple.</p>
 </dd>
 </dl>
 </section>
-<section id="id27">
-<h3>Returns<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<section id="id26">
+<h3>Returns<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
 <p>self : DeepTrackNode</p>
 </section>
 </dd></dl>
@@ -1191,6 +1183,7 @@ evaluation.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deeptrack.backend.core.DeepTrackNode"><code class="docutils literal notranslate"><span class="pre">DeepTrackNode</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeptrack.backend.core.DeepTrackNode.action"><code class="docutils literal notranslate"><span class="pre">DeepTrackNode.action</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeptrack.backend.core.DeepTrackNode.citations"><code class="docutils literal notranslate"><span class="pre">DeepTrackNode.citations</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeptrack.backend.core.DeepTrackNode.__call__"><code class="docutils literal notranslate"><span class="pre">DeepTrackNode.__call__()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeptrack.backend.core.DeepTrackNode.add_child"><code class="docutils literal notranslate"><span class="pre">DeepTrackNode.add_child()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeptrack.backend.core.DeepTrackNode.add_dependency"><code class="docutils literal notranslate"><span class="pre">DeepTrackNode.add_dependency()</span></code></a></li>
@@ -1204,7 +1197,6 @@ evaluation.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeptrack.backend.core.DeepTrackNode.recurse_dependencies"><code class="docutils literal notranslate"><span class="pre">DeepTrackNode.recurse_dependencies()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeptrack.backend.core.DeepTrackNode.set_value"><code class="docutils literal notranslate"><span class="pre">DeepTrackNode.set_value()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeptrack.backend.core.DeepTrackNode.store"><code class="docutils literal notranslate"><span class="pre">DeepTrackNode.store()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeptrack.backend.core.DeepTrackNode.update"><code class="docutils literal notranslate"><span class="pre">DeepTrackNode.update()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeptrack.backend.core.DeepTrackNode.valid_index"><code class="docutils literal notranslate"><span class="pre">DeepTrackNode.valid_index()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deeptrack.backend.core.DeepTrackNode.validate"><code class="docutils literal notranslate"><span class="pre">DeepTrackNode.validate()</span></code></a></li>
 </ul>

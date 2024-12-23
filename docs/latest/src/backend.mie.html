@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>deeptrack.backend.mie Module &#8212; DeepTrack2 7 documentation</title>
+    <title>deeptrack.backend.mie Module &#8212; DeepTrack2 2024-12-21 documentation</title>
   
   
   
@@ -39,24 +39,24 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=4657d737"></script>
+    <script src="../_static/documentation_options.js?v=d1b89cdd"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'src/backend.mie';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://giovannivolpe.github.io/trial_DeepTrack2/latest/_static/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2024-12-21';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="coefficients" href="../api/deeptrack.backend.mie.coefficients.html" />
+    <link rel="next" title="mie_coefficients" href="../api/deeptrack.backend.mie.mie_coefficients.html" />
     <link rel="prev" title="DeepTrackNode" href="../api/deeptrack.backend.core.DeepTrackNode.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="7" />
+  <meta name="docsearch:version" content="2024-12-21" />
   </head>
   
   
@@ -118,7 +118,7 @@
   
   
   
-    <p class="title logo__title">DeepTrack2 7 documentation</p>
+    <p class="title logo__title">DeepTrack2 2024-12-21 documentation</p>
   
 </a></div>
     
@@ -500,9 +500,9 @@
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">deeptrack.backend.mie Module</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.coefficients.html">coefficients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.harmonics.html">harmonics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.stratified_coefficients.html">stratified_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.mie_coefficients.html">mie_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.mie_harmonics.html">mie_harmonics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.stratified_mie_coefficients.html">stratified_mie_coefficients</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="backend.pint_definition.html">deeptrack.backend.pint_definition Module</a></li>
@@ -612,33 +612,33 @@
                   
   <section id="module-deeptrack.backend.mie">
 <span id="deeptrack-backend-mie-module"></span><h1>deeptrack.backend.mie Module<a class="headerlink" href="#module-deeptrack.backend.mie" title="Link to this heading">#</a></h1>
-<p>Mie scattering calculations.</p>
+<p>Mie scattering calculations</p>
 <p>This module provides functions to perform Mie scattering calculations, 
 including computation of spherical harmonics coefficients and related 
 operations.</p>
 <section id="module-structure">
 <h2>Module Structure<a class="headerlink" href="#module-structure" title="Link to this heading">#</a></h2>
-<p>Functions:</p>
+<p>Functions:
+- <cite>mie_coefficients</cite>: Computes coefficients for spherical harmonics.
+- <cite>stratified_mie_coefficients</cite>: Computes coefficients for stratified spherical</p>
+<blockquote>
+<div><p>harmonics.</p>
+</div></blockquote>
 <ul class="simple">
-<li><p><cite>coefficients</cite>: Coefficients for spherical harmonics.</p></li>
-<li><p><cite>stratified_coefficients</cite>: Coefficients for stratified spherical harmonics.</p></li>
-<li><p><cite>harmonics</cite>: Evaluates spherical harmonics of the Mie field.</p></li>
+<li><p><cite>mie_harmonics</cite>: Evaluates spherical harmonics of the Mie field.</p></li>
 </ul>
 </section>
 <section id="example">
 <h2>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
-<p>Define the parameters of the particle and the Mie scattering:</p>
+<p>Calculate Mie coefficients for a solid particle:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">relative_refract_index</span> <span class="o">=</span> <span class="mf">1.5</span> <span class="o">+</span> <span class="mf">0.01</span><span class="n">j</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">particle_radius</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">max_order</span> <span class="o">=</span> <span class="mi">5</span>
 </pre></div>
 </div>
-<p>Calculate Mie coefficients for a solid particle:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">deeptrack.backend</span> <span class="kn">import</span> <span class="n">mie</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">mie</span><span class="o">.</span><span class="n">coefficients</span><span class="p">(</span><span class="n">relative_refract_index</span><span class="p">,</span> <span class="n">particle_radius</span><span class="p">,</span> <span class="n">max_order</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">mie_coefficients</span><span class="p">(</span><span class="n">relative_refract_index</span><span class="p">,</span> <span class="n">particle_radius</span><span class="p">,</span> <span class="n">max_order</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Print them:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A coefficients:&quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;B coefficients:&quot;</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
 </pre></div>
@@ -648,31 +648,31 @@ operations.</p>
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../api/deeptrack.backend.mie.coefficients.html#deeptrack.backend.mie.coefficients" title="deeptrack.backend.mie.coefficients"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coefficients</span></code></a>(m, a, L)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dricbesh</span></code>(l, x)</p></td>
+<td><p>The first derivative of the Riccati-Bessel polynomial of the third kind.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dricbesj</span></code>(l, x)</p></td>
+<td><p>The first derivative of the Riccati-Bessel polynomial of the first kind.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dricbesy</span></code>(l, x)</p></td>
+<td><p>The first derivative of the Riccati-Bessel polynomial of the second kind.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/deeptrack.backend.mie.mie_coefficients.html#deeptrack.backend.mie.mie_coefficients" title="deeptrack.backend.mie.mie_coefficients"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mie_coefficients</span></code></a>(m, a, L)</p></td>
 <td><p>Calculate the Mie scattering coefficients for a spherical particle.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dricbesh</span></code>(l, x)</p></td>
-<td><p>The first derivative of the Riccati-Bessel polynomial of the 3rd kind.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dricbesj</span></code>(l, x)</p></td>
-<td><p>The first derivative of the Riccati-Bessel polynomial of the 1st kind.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dricbesy</span></code>(l, x)</p></td>
-<td><p>The first derivative of the Riccati-Bessel polynomial of the 2nd kind.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../api/deeptrack.backend.mie.harmonics.html#deeptrack.backend.mie.harmonics" title="deeptrack.backend.mie.harmonics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">harmonics</span></code></a>(x, L)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/deeptrack.backend.mie.mie_harmonics.html#deeptrack.backend.mie.mie_harmonics" title="deeptrack.backend.mie.mie_harmonics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mie_harmonics</span></code></a>(x, L)</p></td>
 <td><p>Calculate the spherical harmonics of the Mie field.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ricbesh</span></code>(l, x)</p></td>
-<td><p>The Riccati-Bessel polynomial of the 3rd kind.</p></td>
+<td><p>The Riccati-Bessel polynomial of the third kind.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ricbesj</span></code>(l, x)</p></td>
-<td><p>The Riccati-Bessel polynomial of the 1st kind.</p></td>
+<td><p>The Riccati-Bessel polynomial of the first kind.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ricbesy</span></code>(l, x)</p></td>
-<td><p>The Riccati-Bessel polynomial of the 2nd kind.</p></td>
+<td><p>The Riccati-Bessel polynomial of the second kind.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../api/deeptrack.backend.mie.stratified_coefficients.html#deeptrack.backend.mie.stratified_coefficients" title="deeptrack.backend.mie.stratified_coefficients"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stratified_coefficients</span></code></a>(m, a, L)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/deeptrack.backend.mie.stratified_mie_coefficients.html#deeptrack.backend.mie.stratified_mie_coefficients" title="deeptrack.backend.mie.stratified_mie_coefficients"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stratified_mie_coefficients</span></code></a>(m, a, L)</p></td>
 <td><p>Calculate the Mie scattering coefficients for stratified spherical  particles.</p></td>
 </tr>
 </tbody>
@@ -701,11 +701,11 @@ operations.</p>
       </div>
     </a>
     <a class="right-next"
-       href="../api/deeptrack.backend.mie.coefficients.html"
+       href="../api/deeptrack.backend.mie.mie_coefficients.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">coefficients</p>
+        <p class="prev-next-title">mie_coefficients</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

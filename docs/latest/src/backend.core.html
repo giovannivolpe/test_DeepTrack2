@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>deeptrack.backend.core Module &#8212; DeepTrack2 7 documentation</title>
+    <title>deeptrack.backend.core Module &#8212; DeepTrack2 2024-12-21 documentation</title>
   
   
   
@@ -39,14 +39,14 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=4657d737"></script>
+    <script src="../_static/documentation_options.js?v=d1b89cdd"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'src/backend.core';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://giovannivolpe.github.io/trial_DeepTrack2/latest/_static/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2024-12-21';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
@@ -56,7 +56,7 @@
     <link rel="prev" title="safe_call" href="../api/deeptrack.utils.safe_call.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="7" />
+  <meta name="docsearch:version" content="2024-12-21" />
   </head>
   
   
@@ -118,7 +118,7 @@
   
   
   
-    <p class="title logo__title">DeepTrack2 7 documentation</p>
+    <p class="title logo__title">DeepTrack2 2024-12-21 documentation</p>
   
 </a></div>
     
@@ -500,9 +500,9 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="backend.mie.html">deeptrack.backend.mie Module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.coefficients.html">coefficients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.harmonics.html">harmonics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.stratified_coefficients.html">stratified_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.mie_coefficients.html">mie_coefficients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.mie_harmonics.html">mie_harmonics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deeptrack.backend.mie.stratified_mie_coefficients.html">stratified_mie_coefficients</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="backend.pint_definition.html">deeptrack.backend.pint_definition Module</a></li>
@@ -622,55 +622,50 @@ In particular, it enables users to:</p>
 </ul>
 <section id="main-features">
 <h2>Main Features<a class="headerlink" href="#main-features" title="Link to this heading">#</a></h2>
-<ul>
-<li><p><strong>Data Management</strong></p>
-<blockquote>
-<div><p><cite>DeepTrackDataObject</cite> and <cite>DeepTrackDataDict</cite> provide tools to store, 
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Data Management</strong>: </dt><dd><p><cite>DeepTrackDataObject</cite> and <cite>DeepTrackDataDict</cite> provide tools to store, 
 validate, and manage data with dependency tracking. They enable nested 
 data structures and flexible indexing for complex data hierarchies.</p>
-</div></blockquote>
+</dd>
+</dl>
 </li>
-<li><p><strong>Computational Graphs</strong></p>
-<blockquote>
-<div><p><cite>DeepTrackNode</cite> forms the backbone of DeepTrack2 computation pipelines, 
+<li><dl class="simple">
+<dt><strong>Computational Graphs</strong>: </dt><dd><p><cite>DeepTrackNode</cite> forms the backbone of DeepTrack2 computation pipelines, 
 representing computation nodes in a computation graph. Nodes support lazy 
 evaluation, dependency tracking, and caching for improved computational 
 performance. They implement mathematical operators for easy composition 
 of computational graphs.</p>
-</div></blockquote>
+</dd>
+</dl>
 </li>
-<li><p><strong>Citations</strong></p>
-<blockquote>
-<div><p>Supports citing the relevant publication to ensure proper attribution 
+<li><dl class="simple">
+<dt><strong>Citations</strong>: </dt><dd><p>Supports citing the relevant publication to ensure proper attribution 
 (e.g., <cite>Midtvedt et al., 2021</cite>).</p>
-</div></blockquote>
+</dd>
+</dl>
 </li>
 </ul>
 </section>
 <section id="module-structure">
 <h2>Module Structure<a class="headerlink" href="#module-structure" title="Link to this heading">#</a></h2>
 <p>Data Containers:</p>
-<ul>
-<li><p><cite>DeepTrackDataObject</cite>: Basic data container with validation status.</p>
-<blockquote>
-<div><p>A basic container for data with validation status.</p>
-</div></blockquote>
-</li>
-<li><p><cite>DeepTrackDataDict</cite>: Dictionary to store multiple data with validation.</p>
-<blockquote>
-<div><p>A data container to store multiple data objects (<cite>DeepTrackDataObject</cite>) 
-indexed by unique access IDs (consisting of tuples of integers), enabling 
-nested data storage.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p><cite>DeepTrackDataObject</cite>: A basic container for data with validation status.</p></li>
+<li><dl class="simple">
+<dt><cite>DeepTrackDataDict</cite>: A data container to store multiple data objects </dt><dd><p>(<cite>DeepTrackDataObject</cite>) indexed by unique access IDs 
+(consisting of tuples of integers), enabling nested data 
+storage.</p>
+</dd>
+</dl>
 </li>
 </ul>
 <p>Computation Nodes:</p>
-<ul>
-<li><p><cite>DeepTrackNode</cite>: Node in a computation graph.</p>
-<blockquote>
-<div><p>Represents a node in a computation graph, capable of lazy evaluation, 
-caching, and dependency management.</p>
-</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt><cite>DeepTrackNode</cite>: Represents a node in a computation graph, capable of lazy </dt><dd><p>evaluation, caching, and dependency management.</p>
+</dd>
+</dl>
 </li>
 </ul>
 </section>
