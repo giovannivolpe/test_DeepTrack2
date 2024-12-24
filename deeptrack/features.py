@@ -3000,80 +3000,316 @@ def _get_position(image, mode="corner", return_z=False):
 
 
 class AsType(Feature):
-    """Converts the data type of images
+    """Convert the data type of images.
 
-    Accepts same types as numpy arrays. Common types include
-
-    `float64, int32, uint16, int16, uint8, int8`
+    This feature changes the data type (`dtype`) of input images to a specified 
+    type. The accepted types are the same as those used by NumPy arrays, such 
+    as `float64`, `int32`, `uint16`, `int16`, `uint8`, and `int8`.
 
     Parameters
     ----------
-    dtype : str
-        dtype string. Same as numpy dtype.
+    dtype : PropertyLike[Any], optional
+        The desired data type for the image. Defaults to `"float64"`.
+    **kwargs : Dict[str, Any]
+        Additional keyword arguments passed to the parent `Feature` class.
+
+    Example
+    -------
+    >>> import numpy as np
+    >>> from deeptrack.features import AsType
+
+    Create an input array:
+
+    >>> input_image = np.array([1.5, 2.5, 3.5])
+
+    Apply an AsType feature to convert to `int32`:
+
+    >>> astype_feature = AsType(dtype="int32")
+    >>> output_image = astype_feature.get(input_image, dtype="int32")
+    >>> print(output_image)
+    [1 2 3]
+
+    Verify the data type:
+    
+    >>> print(output_image.dtype)
+    int32
 
     """
 
-    def __init__(self, dtype: PropertyLike[Any] = "float64", **kwargs):
+    def __init__(
+        self,
+        dtype: PropertyLike[Any] = "float64",
+        **kwargs: Dict[str, Any],
+    ):
+        """
+        Initialize the AsType feature.
+
+        Parameters
+        ----------
+        dtype : PropertyLike[Any], optional
+            The desired data type for the image. Defaults to `"float64"`.
+        **kwargs : Dict[str, Any]
+            Additional keyword arguments passed to the parent `Feature` class.
+
+        """
+
         super().__init__(dtype=dtype, **kwargs)
 
-    def get(self, image, dtype, **kwargs):
+    def get(
+        self,
+        image: np.ndarray,
+        dtype: str,
+        **kwargs: Dict[str, Any],
+    ) -> np.ndarray:
+        """Convert the data type of the input image.
+
+        Parameters
+        ----------
+        image : np.ndarray
+            The input image to process.
+        dtype : str
+            The desired data type for the image.
+        **kwargs : Any
+            Additional keyword arguments (unused here).
+
+        Returns
+        -------
+        np.ndarray
+            The input image converted to the specified data type.
+
+        """
+
         return image.astype(dtype)
 
 
 class ChannelFirst2d(Feature):
-    """Converts a 3d image to channel first format.
+    """Convert an image to a channel-first format.
+
+    This feature rearranges the axes of a 3D image so that the specified axis 
+    (e.g., channel axis) is moved to the first position. If the input image is 
+    2D, it adds a new dimension at the front, effectively treating the 2D 
+    image as a single-channel image.
 
     Parameters
     ----------
-    axis : int
-        The axis to move to the first position. Defaults to -1.
+    axis : int, optional
+        The axis to move to the first position. Defaults to `-1` (last axis).
+    **kwargs : Dict[str, Any]
+        Additional keyword arguments passed to the parent `Feature` class.
+
+    Example
+    -------
+    >>> import numpy as np
+    >>> from deeptrack.features import ChannelFirst2d
+
+    Create a 2D input array:
+
+    >>> input_image_2d = np.random.rand(10, 10)
+    >>> print(input_image_2d.shape)
+    (10, 10)
+
+    Convert it to channel-first format:
+
+    >>> channel_first_feature = ChannelFirst2d()
+    >>> output_image = channel_first_feature.get(input_image_2d, axis=-1)
+    >>> print(output_image.shape)
+    (1, 10, 10)
+
+    Create a 3D input array:
+
+    >>> input_image_3d = np.random.rand(10, 10, 3)
+    >>> print(input_image_3d.shape)
+    (10, 10, 3)
+
+    Convert it to channel-first format:
+
+    >>> output_image = channel_first_feature.get(input_image_3d, axis=-1)
+    >>> print(output_image.shape)
+    (3, 10, 10)
+
     """
 
-    def __init__(self, axis=-1, **kwargs):
+    def __init__(
+        self,
+        axis: int = -1,
+        **kwargs: Dict[str, Any],
+    ):
+        """Initialize the ChannelFirst2d feature.
+
+        Parameters
+        ----------
+        axis : int, optional
+            The axis to move to the first position. 
+            Defaults to `-1` (last axis).
+        **kwargs : Dict[str, Any]
+            Additional keyword arguments passed to the parent `Feature` class.
+
+        """
+
         super().__init__(axis=axis, **kwargs)
-    def get(self, image, axis, **kwargs):
+
+    def get(
+        self,
+        image: np.ndarray,
+        axis: int,
+        **kwargs: Dict[str, Any],
+    ) -> np.ndarray:
+        """Rearrange the axes of an image to channel-first format.
+
+        Rearrange the axes of a 3D image to channel-first format or add a 
+        channel dimension to a 2D image.
+
+        Parameters
+        ----------
+        image : np.ndarray
+            The input image to process. Can be 2D or 3D.
+        axis : int
+            The axis to move to the first position (for 3D images).
+        **kwargs : Any
+            Additional keyword arguments (unused here).
+
+        Returns
+        -------
+        np.ndarray
+            The processed image in channel-first format.
+
+        Raises
+        ------
+        ValueError
+            If the input image is neither 2D nor 3D.
+
+        """
+
         ndim = image.ndim
 
+        # Add a new dimension for 2D images.
         if ndim == 2:
             return image[None]
-        elif ndim == 3:
+
+        # Move the specified axis to the first position for 3D images.
+        if ndim == 3:
             return np.moveaxis(image, axis, 0)
+
+        raise ValueError("ChannelFirst2d only supports 2D or 3D images. "
+                         f"Received {ndim}D image.")
 
 
 class Upscale(Feature):
-    """Performs the simulation at a higher resolution.
+    """Perform the simulation at a higher resolution.
 
-    Redefines the sizes of internal units to scale up the simulation. The resulting image
-    is then downscaled back to the original size. Example::
-
-       optics = dt.Fluorescence()
-       particle = dt.Sphere()
-       pipeline = optics(particle)
-       upscaled_pipeline = dt.Upscale(pipeline, factor=4)
+    This feature scales up the resolution of the input pipeline by a specified 
+    factor, performs computations at the higher resolution, and then 
+    downsamples the result back to the original size. This is useful for 
+    simulating effects at a finer resolution while preserving compatibility 
+    with lower-resolution pipelines.
+    
+    It redefines the sizes of internal units to scale up the simulation. 
+    The resulting image is then downscaled back to the original size.
 
     Parameters
     ----------
     feature : Feature
-        The pipeline to resolve at a higher resolution
-    factor : int or tuple of ints
-        The factor to scale up the simulation by. If a tuple of three integers,
-        each axis is scaled up individually.
+        The pipeline or feature to resolve at a higher resolution.
+    factor : int or Tuple[int, int, int], optional
+        The factor by which to upscale the simulation. If a single integer is 
+        provided, it is applied uniformly across all axes. If a tuple of three 
+        integers is provided, each axis is scaled individually. Defaults to 1.
+    **kwargs : Dict[str, Any]
+        Additional keyword arguments passed to the parent `Feature` class.
+
+    Attributes
+    ----------
+    __distributed__ : bool
+        Indicates whether this feature distributes computation across inputs.
+        Always `False` for `Upscale`.
+
+    Methods
+    -------
+    get(image, factor, **kwargs)
+        Scales up the pipeline, performs computations, and scales down result.
+
+    Example
+    -------
+    >>> import deeptrack as dt
+    >>> optics = dt.Fluorescence()
+    >>> particle = dt.Sphere()
+    >>> pipeline = optics(particle)
+    >>> upscaled_pipeline = dt.Upscale(pipeline, factor=4)
 
     """
 
-    __distributed__ = False
+    __distributed__: bool = False
 
-    def __init__(self, feature, factor=1, **kwargs):
+    def __init__(
+        self,
+        feature: Feature,
+        factor: Union[int, Tuple[int, int, int]] = 1,
+        **kwargs: Dict[str, Any],
+    ):
+        """Initialize the Upscale feature.
+
+        Parameters
+        ----------
+        feature : Feature
+            The pipeline or feature to resolve at a higher resolution.
+        factor : Union[int, Tuple[int, int, int]], optional
+            The factor by which to upscale the simulation. If a single integer 
+            is provided, it is applied uniformly across all axes. If a tuple of 
+            three integers is provided, each axis is scaled individually. 
+            Defaults to `1`.
+        **kwargs : Dict[str, Any]
+            Additional keyword arguments passed to the parent `Feature` class.
+
+        """
+
         super().__init__(factor=factor, **kwargs)
         self.feature = self.add_feature(feature)
 
-    def get(self, image, factor, **kwargs):
+    def get(
+        self,
+        image: np.ndarray,
+        factor: Union[int, Tuple[int, int, int]],
+        **kwargs: Dict[str, Any],
+    ) -> np.ndarray:
+        """Scale up resolution of feature pipeline and scale down result.
+
+        Parameters
+        ----------
+        image : np.ndarray
+            The input image to process.
+        factor : int or Tuple[int, int, int]
+            The factor by which to upscale the simulation. If a single integer 
+            is provided, it is applied uniformly across all axes. If a tuple of 
+            three integers is provided, each axis is scaled individually.
+        **kwargs : Dict[str, Any]
+            Additional keyword arguments passed to the feature.
+
+        Returns
+        -------
+        np.ndarray
+            The processed image at the original resolution.
+
+        Raises
+        ------
+        ValueError
+            If the input `factor` is not a valid integer or tuple of integers.
+
+        """
+
+        # Ensure factor is a tuple of three integers.
         if np.size(factor) == 1:
             factor = (factor,) * 3
+        elif len(factor) != 3:
+            raise ValueError(
+                "Factor must be an integer or a tuple of three integers."
+            )
+
+        # Create a context for upscaling and perform computation.
         ctx = create_context(None, None, None, *factor)
         with units.context(ctx):
             image = self.feature(image)
 
+        # Downscale the result to the original resolution.
         image = skimage.measure.block_reduce(
             image, (factor[0], factor[1]) + (1,) * (image.ndim - 2), np.mean
         )
